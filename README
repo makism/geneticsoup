@@ -1,0 +1,5 @@
+Originally the port to C++ was targeted for ARM processors.
+This idea has been dropped and will support x86 architectures.
+The project will use CMake in order to make cross-platform compatible and depend only on STL or some libraries of Boost (under consideration).
+
+
