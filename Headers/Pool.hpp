@@ -10,7 +10,7 @@ namespace GeneticSoup {
 	public:
 		Pool( void );
 		Pool( int );
-		~Pool( void );
+		virtual ~Pool( void );
 
 		bool MoveNext( void );
 		T Current( void );
@@ -25,7 +25,6 @@ namespace GeneticSoup {
 
 #pragma region Operator overload
 		T operator []( int );
-		//friend std::ostream& operator <<( std::ostream &, const Pool );
 #pragma endregion
 
 	protected:

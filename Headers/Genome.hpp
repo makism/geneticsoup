@@ -9,24 +9,22 @@ namespace GeneticSoup {
 
 	public:
 		Genome( void );
-		~Genome( void );
+		virtual ~Genome( void );
 
-		virtual void Create( void ) = 0;
+		void Create( void );
 
 	protected:
-		float _fitness;
-		int _size;
-		int _id;
-		bool _isMutated;
-		bool _sucessCrossover;
-		bool _permutationEncoding;
-		bool _isCreated;
+		float mFitness;
+		int mSize;
+		int mId;
+		bool mIsMutated;
+		bool mSucessCrossover;
+		bool mPermutationEncoding;
+		bool mIsCreated;
 
 		void Init( void );
 		virtual void RandomEncoding( void ) = 0;
 		virtual void PermutationEncoding( void ) = 0;
-
-	private:
 
 	};
 

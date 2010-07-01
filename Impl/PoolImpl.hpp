@@ -67,10 +67,4 @@ namespace GeneticSoup {
 		return NULL;
 	}
 
-	//template<class T>
-	//std::ostream& operator <<( std::ostream &stream, const Pool< T > p ) {
-	//	stream << T;
-
-	//	return stream;
-	//}
 }

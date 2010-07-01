@@ -10,8 +10,6 @@ namespace GeneticSoup {
 		NaturalNumberGenome( void );
 		~NaturalNumberGenome( void );
 
-		void Create( void );
-
 	protected:
 		void RandomEncoding( void );
 		void PermutationEncoding( void );
