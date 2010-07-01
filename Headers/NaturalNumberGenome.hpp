@@ -7,6 +7,10 @@ namespace GeneticSoup {
 	class NaturalNumberGenome: public Genome<int> {
 
 	public:
+		static unsigned int Max;
+		static unsigned int Min;
+		static unsigned int Pad;
+
 		NaturalNumberGenome( void );
 		~NaturalNumberGenome( void );
 

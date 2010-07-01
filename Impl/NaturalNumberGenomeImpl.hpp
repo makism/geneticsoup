@@ -2,6 +2,12 @@
 
 namespace GeneticSoup {
 
+#ifdef _WIN32
+	unsigned int NaturalNumberGenome::Max = std::numeric_limits<unsigned int>::max( );
+	unsigned int NaturalNumberGenome::Min = std::numeric_limits<unsigned int>::min( );
+	unsigned int NaturalNumberGenome::Pad = 0;
+#endif
+
 	NaturalNumberGenome::NaturalNumberGenome( void ) {
 
 	}
@@ -11,11 +17,11 @@ namespace GeneticSoup {
 	}
 
 	void NaturalNumberGenome::RandomEncoding( void ) {
-		std::cout << "NaturalNumberGenome::RandomEncoding" << std::endl;
+		// random.Next(Min, Max) + Pad;
 	}
 
 	void NaturalNumberGenome::PermutationEncoding( void ) {
-		std::cout << "NaturalNumberGenome::PermutationEncoding" << std::endl;
+
 	}
 
 }
