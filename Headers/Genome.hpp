@@ -8,10 +8,16 @@ namespace GeneticSoup {
 	class Genome: public Pool<T> {
 
 	public:
-		Genome( void );
+		Genome( int, EncodingType );
 		virtual ~Genome( void );
 
 		void Create( void );
+		float Fitness( void );
+		int Size( void );
+		int Id( void );
+		bool IsMutated( void );
+		bool HasSuccessCrossover( void );
+		bool IsCreated( void );
 
 	protected:
 		float mFitness;
@@ -19,12 +25,16 @@ namespace GeneticSoup {
 		int mId;
 		bool mIsMutated;
 		bool mSucessCrossover;
-		bool mPermutationEncoding;
+		EncodingType mEncodingType;
 		bool mIsCreated;
 
 		void Init( void );
-		virtual void RandomEncoding( void ) = 0;
-		virtual void PermutationEncoding( void ) = 0;
+		virtual void RandomEncoding( void );
+		virtual void PermutationEncoding( void );
+		virtual void CustomEncoding( void );
+
+	private:
+		static unsigned long int _idCounter;
 
 	};
 

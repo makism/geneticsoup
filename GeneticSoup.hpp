@@ -8,6 +8,7 @@
 #include <vector>
 
 #include "GeneticSoup_Version.hpp"
+#include "Headers/EncodingType.hpp"
 #include "Headers/Pool.hpp"
 #include "Headers/Genome.hpp"
 #include "Headers/NaturalNumberGenome.hpp"

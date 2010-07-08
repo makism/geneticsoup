@@ -2,7 +2,8 @@
 
 namespace GeneticSoup {
 
-	BinaryGenome::BinaryGenome( void ) {
+	BinaryGenome::BinaryGenome( int size, EncodingType type )
+		: Genome( size, type ) {
 
 	}
 

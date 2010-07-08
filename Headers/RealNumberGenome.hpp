@@ -10,7 +10,7 @@ namespace GeneticSoup {
 		static float Pad;
 		static float Scale;
 
-		RealNumberGenome( void );
+		RealNumberGenome( int, EncodingType );
 		~RealNumberGenome( void );
 
 	protected:

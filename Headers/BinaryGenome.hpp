@@ -7,7 +7,7 @@ namespace GeneticSoup {
 	class BinaryGenome: public Genome<unsigned short int> {
 
 	public:
-		BinaryGenome( void );
+		BinaryGenome( int, EncodingType );
 		~BinaryGenome( void );
 
 	protected:
