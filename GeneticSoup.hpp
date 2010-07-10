@@ -2,6 +2,7 @@
 #define _GENETICSOUP_HPP_
 
 #include <iostream>
+#include <sstream>
 #include <limits>
 #include <string>
 #include <iterator>

@@ -7,8 +7,10 @@ namespace GeneticSoup {
 	class RealNumberGenome: public Genome<float> {
 
 	public:
+#pragma region Pad/Scale
 		static float Pad;
 		static float Scale;
+#pragma endregion
 
 		RealNumberGenome( int, EncodingType );
 		~RealNumberGenome( void );
@@ -16,6 +18,7 @@ namespace GeneticSoup {
 	protected:
 		void RandomEncoding( void );
 		void PermutationEncoding( void );
+		void CustomEncoding( void );
 
 	};
 

@@ -12,27 +12,23 @@ namespace GeneticSoup {
 		Pool( int );
 		virtual ~Pool( void );
 
+		T At( int );
 		bool MoveNext( void );
 		T Current( void );
 		void Reset( void );
 		int Size( void );
 		std::vector<T> *Reference( void );
 
-		std::string ToString( void ) {
-			std::string str( "asdf ");
-			return str;
-		}
+		virtual const std::string ToString( void );
 
 #pragma region Operator overload
-		T operator []( int );
+		virtual T operator []( int );
 #pragma endregion
 
 	protected:
-		std::vector<T> *pool;
-
-	private:
 		int position;
 		int size;
+		std::vector<T> *pool;
 
 	};
 

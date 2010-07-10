@@ -18,16 +18,9 @@ namespace GeneticSoup {
 	}
 
 	void NaturalNumberGenome::RandomEncoding( void ) {
-		std::cout << "Max: " << Max << std
-			::endl;
-		std::cout << "Min: " << Min << std::endl;
-		std::cout << "Pad: " << Pad << std::endl;
-
-			unsigned int p = ( ( unsigned int (rand( )) % Max ) + Min ) + Pad;
-
-			std::cout << p << std::endl;
-		// base = rand( ) / (float)scale;
-		// random.Next(Min, Max) + Pad;
+		for( int i=0; i<size; i++ ) {
+			(*pool)[i] = (( unsigned int (rand( )) % Max ) + Min ) + Pad;
+		}
 	}
 
 	void NaturalNumberGenome::PermutationEncoding( void ) {

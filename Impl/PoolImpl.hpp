@@ -21,6 +21,11 @@ namespace GeneticSoup {
 	}
 
 	template<class T>
+	T Pool<T>::At( int i ) {
+		return pool->at( i );
+	}
+
+	template<class T>
 	bool Pool<T>::MoveNext( void ) {
 		if( position < pool->size( ) ) {
 			position++;
@@ -60,11 +65,34 @@ namespace GeneticSoup {
 
 	template<class T>
 	T Pool<T>::operator []( int i ) {
+		return pool->at( i );
+
+		std::vector<T>::size_type size = 45;
+
 		if( i < pool->size( ) ) {
 			return pool->at( i );
 		}
 
 		return NULL;
+	}
+
+	template<class T>
+	const std::string Pool<T>::ToString( void ) {
+            std::ostringstream oss;
+
+			oss << "[ ";
+                
+            for( int i=0; i<size; i++ ) {
+                oss << pool->at(i);
+                
+                if( i<size-1 ) {
+                    oss << ", ";
+                }
+            }
+                
+            oss << " ]";
+            
+            return oss.str( );
 	}
 
 }

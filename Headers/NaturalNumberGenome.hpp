@@ -4,7 +4,7 @@
 
 namespace GeneticSoup {
 
-	class NaturalNumberGenome: public Genome<int> {
+	class NaturalNumberGenome: public Genome<unsigned int> {
 
 	public:
 #pragma region Max/Min/Padding

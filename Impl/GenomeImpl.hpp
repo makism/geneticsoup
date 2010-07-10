@@ -9,7 +9,7 @@ namespace GeneticSoup {
 
 	template<class T>
 	Genome<T>::Genome( int size, EncodingType type )
-		: Pool( ) {
+		: Pool( size ) {
 		Init( );
 
 		this->mSize = size;
@@ -60,7 +60,7 @@ namespace GeneticSoup {
 
 	template<class T>
 	void Genome<T>::RandomEncoding( void ) {
-	
+
 	}
 
 	template<class T>

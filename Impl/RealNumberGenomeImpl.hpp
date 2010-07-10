@@ -17,19 +17,23 @@ namespace GeneticSoup {
 	}
 
 	void RealNumberGenome::RandomEncoding( void ) {
-		/*
-		    float base = 0.0f;
-            float fine = 0.0f;
-            for( int i=0; i<dimensions; i++ ) {
-            base = rand( ) / (float)scale;
-            fine = rand( ) / (float)scale;
-                
-            points[i] = base + ( fine / scale );
-		*/
-		// ((float)random.NextDouble() * scale) + pad;
+		float base = 0.0f;
+		float fine = 0.0f;
+		int scale = RAND_MAX + 1;
+
+		for( int i=0; i<size; i++ ) {
+			base = rand( ) / static_cast<float>( scale );
+			fine = rand( ) / static_cast<float>( scale );
+	            
+			(*pool)[i] = ( ( base + ( fine / scale ) ) * Scale ) + Pad;
+		}
 	}
 
 	void RealNumberGenome::PermutationEncoding( void ) {
+
+	}
+
+	void RealNumberGenome::CustomEncoding( void ) {
 
 	}
 
