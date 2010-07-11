@@ -21,11 +21,11 @@ namespace GeneticSoup {
 		float fine = 0.0f;
 		int scale = RAND_MAX + 1;
 
-		for( int i=0; i<size; i++ ) {
+		for( int i=0; i<Size( ); i++ ) {
 			base = rand( ) / static_cast<float>( scale );
 			fine = rand( ) / static_cast<float>( scale );
 	            
-			(*pool)[i] = ( ( base + ( fine / scale ) ) * Scale ) + Pad;
+			(*mPool)[i] = ( ( base + ( fine / scale ) ) * Scale ) + Pad;
 		}
 	}
 

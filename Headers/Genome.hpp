@@ -8,16 +8,26 @@ namespace GeneticSoup {
 	class Genome: public Pool<T> {
 
 	public:
-		Genome( int, EncodingType );
+#pragma region Ctors/Dtors
+		Genome( unsigned int, EncodingType );
 		virtual ~Genome( void );
+#pragma endregion
 
 		void Create( void );
 		float Fitness( void );
-		int Size( void );
 		int Id( void );
 		bool IsMutated( void );
 		bool HasSuccessCrossover( void );
 		bool IsCreated( void );
+
+		friend void Evaluate( Genome<T>& );
+		friend void Evaluate( Genome<T>* );
+	
+		virtual const std::string ToString( bool = false );
+
+#pragma region Operator overload
+		virtual T operator []( int );
+#pragma endregion
 
 	protected:
 		float mFitness;

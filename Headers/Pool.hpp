@@ -8,16 +8,22 @@ namespace GeneticSoup {
 	class Pool {
 
 	public:
+#pragma region Ctors/Dtors
 		Pool( void );
-		Pool( int );
+		Pool( unsigned int );
 		virtual ~Pool( void );
+#pragma endregion
 
+#pragma region Enumeration-like methods
 		T At( int );
-		bool MoveNext( void );
+		bool Next( void );
 		T Current( void );
 		void Reset( void );
+		T First( void );
+		T Last( void );
 		int Size( void );
 		std::vector<T> *Reference( void );
+#pragma endregion
 
 		virtual const std::string ToString( void );
 
@@ -26,9 +32,9 @@ namespace GeneticSoup {
 #pragma endregion
 
 	protected:
-		int position;
-		int size;
-		std::vector<T> *pool;
+		int mPosition;
+		unsigned int mSize;
+		std::vector<T> *mPool;
 
 	};
 

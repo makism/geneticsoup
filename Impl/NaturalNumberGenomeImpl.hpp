@@ -8,7 +8,7 @@ namespace GeneticSoup {
 	unsigned int NaturalNumberGenome::Pad = 0;
 #endif
 
-	NaturalNumberGenome::NaturalNumberGenome( int size, EncodingType type )
+	NaturalNumberGenome::NaturalNumberGenome( unsigned int size, EncodingType type )
 		: Genome( size, type ) {
 
 	}
@@ -18,8 +18,8 @@ namespace GeneticSoup {
 	}
 
 	void NaturalNumberGenome::RandomEncoding( void ) {
-		for( int i=0; i<size; i++ ) {
-			(*pool)[i] = (( unsigned int (rand( )) % Max ) + Min ) + Pad;
+		for( int i=0; i<Size( ); i++ ) {
+			(*mPool)[i] = (( static_cast<unsigned int> (rand( )) % Max ) + Min ) + Pad;
 		}
 	}
 

@@ -4,73 +4,76 @@ namespace GeneticSoup {
 
 	template<class T>
 	Pool<T>::Pool( void )
-		: position( 0 ), size( -1 ) {
-		pool = new std::vector<T>( );
+		: mPosition( -1 ) {
+		mPool = new std::vector<T>( );
 	}
 
 	template<class T>
-	Pool<T>::Pool( int size )
-		: position( 0 ) {
-		this->size = size;
-		pool = new std::vector<T>( size );
+	Pool<T>::Pool( unsigned int size )
+		: mPosition( -1 ) {
+		mPool = new std::vector<T>( size );
 	}
 
 	template<class T>
 	Pool<T>::~Pool( void ) {
-		delete pool;
+		delete mPool;
 	}
 
 	template<class T>
 	T Pool<T>::At( int i ) {
-		return pool->at( i );
+		return mPool->at( i );
 	}
 
 	template<class T>
-	bool Pool<T>::MoveNext( void ) {
-		if( position < pool->size( ) ) {
-			position++;
+	bool Pool<T>::Next( void ) {
+		if( mPosition + 1 < mPool->size( ) ) {
+			mPosition++;
 
 			return true;
-
 		} else {
 
 			return false;
-
 		}
 	}
 
 	template<class T>
 	T Pool<T>::Current( void ) {
-		return pool->at( position );
+		return mPool->at( mPosition );
 	}
 
 	template<class T>
 	void Pool<T>::Reset( void ) {
-		position = 0;
+		mPosition = -1;
 	}
 
 	template<class T>
-	int Pool<T>::Size( void ) {
-		if( size != -1 ) {
-			return size;
-		} else {
-			return pool->size( );
+	T Pool<T>::First( void ) {
+		if( mPool->size( ) > 0 ) {
+			return mPool->at( 0 );
+		}
+	}
+	
+	template<class T>
+	T Pool<T>::Last( void ) {
+		if( mPool->size( ) > 0 ) {
+			return mPool->at( mPool->size( ) - 1 );
 		}
 	}
 
 	template<class T>
+	int Pool<T>::Size( void ) {
+		return mPool->size( );
+	}
+
+	template<class T>
 	std::vector<T>* Pool<T>::Reference( void ) {
-		return pool;
+		return mPool;
 	}
 
 	template<class T>
 	T Pool<T>::operator []( int i ) {
-		return pool->at( i );
-
-		std::vector<T>::size_type size = 45;
-
-		if( i < pool->size( ) ) {
-			return pool->at( i );
+		if( i < mPool->size( ) ) {
+			return mPool->at( i );
 		}
 
 		return NULL;
@@ -78,21 +81,22 @@ namespace GeneticSoup {
 
 	template<class T>
 	const std::string Pool<T>::ToString( void ) {
-            std::ostringstream oss;
+		std::ostringstream oss;
+		int size = mPool->size( );
 
-			oss << "[ ";
-                
-            for( int i=0; i<size; i++ ) {
-                oss << pool->at(i);
-                
-                if( i<size-1 ) {
-                    oss << ", ";
-                }
-            }
-                
-            oss << " ]";
-            
-            return oss.str( );
+		oss << "[ ";
+
+		for( int i=0; i<size; i++ ) {
+			oss << mPool->at(i);
+
+			if( i<size-1 ) {
+				oss << ", ";
+			}
+		}
+
+		oss << " ]";
+
+		return oss.str( );
 	}
 
 }

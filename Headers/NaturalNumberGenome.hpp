@@ -14,9 +14,11 @@ namespace GeneticSoup {
 #pragma endregion
 
 #pragma region Ctors/Dtors
-		NaturalNumberGenome( int, EncodingType );
+		NaturalNumberGenome( unsigned int, EncodingType );
 		~NaturalNumberGenome( void );
 #pragma endregion
+
+		friend void Evaluate( NaturalNumberGenome& );
 
 	protected:
 		void RandomEncoding( void );

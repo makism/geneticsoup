@@ -8,12 +8,12 @@ namespace GeneticSoup {
 #endif
 
 	template<class T>
-	Genome<T>::Genome( int size, EncodingType type )
+	Genome<T>::Genome( unsigned int size, EncodingType type )
 		: Pool( size ) {
-		Init( );
+			Init( );
 
-		this->mSize = size;
-		this->mEncodingType = type;
+		mSize = size;
+		mEncodingType = type;
 	}
 
 	template<class T>
@@ -24,7 +24,6 @@ namespace GeneticSoup {
 	template<class T>
 	void Genome<T>::Create( void ) {
 		if( !mIsCreated ) {
-
 			switch( mEncodingType ) {
 				case Random:
 					RandomEncoding( );
@@ -45,17 +44,17 @@ namespace GeneticSoup {
 
 	template<class T>
 	void Genome<T>::Init( void ) {
-		  mFitness = 0.0f;
-		  mSize = 0;
-		  mId = ++_idCounter;
-		  mIsMutated = false;
-		  mSucessCrossover = false;
-		  mIsCreated = false;
+		mFitness = 0.0f;
+		mSize = 0;
+		mId = ++_idCounter;
+		mIsMutated = false;
+		mSucessCrossover = false;
+		mIsCreated = false;
 	}
 
 	template<class T>
 	void Genome<T>::PermutationEncoding( void ) {
-	
+
 	}
 
 	template<class T>
@@ -65,7 +64,30 @@ namespace GeneticSoup {
 
 	template<class T>
 	void Genome<T>::CustomEncoding( void ) {
-	
+
+	}
+
+	template<class T>
+	T Genome<T>::operator []( int i ) {
+		if( i < mSize ) {
+			return mPool->at( i );
+		}
+
+		return NULL;
+	}
+
+	template<class T>
+	const std::string Genome<T>::ToString( bool expandGenome ) {
+		std::ostringstream oss;
+
+		oss << " #" << mId;
+		oss << " (Fitness: " << mFitness << ") ";
+
+		if( expandGenome ) {
+			oss << Pool<T>::ToString( );
+		}
+		
+		return oss.str( );
 	}
 
 }
