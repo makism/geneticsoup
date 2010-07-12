@@ -14,25 +14,28 @@ namespace GeneticSoup {
 		virtual ~Pool( void );
 #pragma endregion
 
-#pragma region Enumeration-like methods
-		T At( int );
+#pragma region Enumeration-like and Vector-modifiers/accessors methods
+		T & At( unsigned int );
+		void Assign( unsigned int, T );
+		bool Push( T );
 		bool Next( void );
 		T Current( void );
 		void Reset( void );
 		T First( void );
 		T Last( void );
-		int Size( void );
+		unsigned int Size( void );
 		std::vector<T> *Reference( void );
 #pragma endregion
 
 		virtual const std::string ToString( void );
 
 #pragma region Operator overload
-		virtual T operator []( int );
+		virtual T operator []( unsigned int );
 #pragma endregion
 
 	protected:
-		int mPosition;
+		unsigned int mPosition;
+		unsigned int mPushPosition;
 		unsigned int mSize;
 		std::vector<T> *mPool;
 
