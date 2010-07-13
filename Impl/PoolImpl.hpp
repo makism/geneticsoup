@@ -31,7 +31,7 @@ namespace GeneticSoup {
 	}
 
 	template<class T>
-	void Pool<T>::Assign( unsigned int index, T value ) {
+	void Pool<T>::Assign( unsigned int index, T & value ) {
 		if( index < mPool->size( ) - 1 && index > 0 ) {
 			(*mPool)[index] = value;
 		} else {
@@ -40,9 +40,9 @@ namespace GeneticSoup {
 	}
 
 	template<class T>
-	bool Pool<T>::Push( T val ) {
+	bool Pool<T>::Push( T & value ) {
 		if( mPushPosition + 1 < mSize ) {
-			(*mPool)[mPushPosition++] = val;
+			(*mPool)[mPushPosition++] = value;
 
 			return true;
 		}
@@ -73,14 +73,14 @@ namespace GeneticSoup {
 	}
 
 	template<class T>
-	T Pool<T>::First( void ) {
+	T & Pool<T>::First( void ) {
 		if( mPool->size( ) > 0 ) {
 			return mPool->at( 0 );
 		}
 	}
 	
 	template<class T>
-	T Pool<T>::Last( void ) {
+	T & Pool<T>::Last( void ) {
 		if( mPool->size( ) > 0 ) {
 			return mPool->at( mPool->size( ) - 1 );
 		}

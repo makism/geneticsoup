@@ -16,13 +16,13 @@ namespace GeneticSoup {
 
 #pragma region Enumeration-like and Vector-modifiers/accessors methods
 		T & At( unsigned int );
-		void Assign( unsigned int, T );
-		bool Push( T );
+		void Assign( unsigned int, T & );
+		bool Push( T & );
 		bool Next( void );
 		T & Current( void );
 		void Reset( void );
-		T First( void );
-		T Last( void );
+		T & First( void );
+		T & Last( void );
 		unsigned int Size( void );
 		std::vector<T> *Reference( void );
 #pragma endregion
