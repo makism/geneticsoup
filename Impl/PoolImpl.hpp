@@ -64,7 +64,7 @@ namespace GeneticSoup {
 
 	template<class T>
 	T & Pool<T>::Current( void ) {
-		return &( mPool->at( mPosition ) );
+		return mPool->at( mPosition );
 	}
 
 	template<class T>
