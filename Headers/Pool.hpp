@@ -19,7 +19,7 @@ namespace GeneticSoup {
 		void Assign( unsigned int, T );
 		bool Push( T );
 		bool Next( void );
-		T Current( void );
+		T & Current( void );
 		void Reset( void );
 		T First( void );
 		T Last( void );
