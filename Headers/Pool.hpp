@@ -30,7 +30,8 @@ namespace GeneticSoup {
 		virtual const std::string ToString( void );
 
 #pragma region Operator overload
-		virtual T operator []( unsigned int );
+		virtual T const& operator []( unsigned int ) const;
+		virtual T & operator []( unsigned int );
 #pragma endregion
 
 	protected:

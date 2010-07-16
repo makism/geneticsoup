@@ -10,13 +10,17 @@ namespace GeneticSoup {
 
 	template<class T>
 	Pool<T>::Pool( void )
-		: mPosition( -1 ), mSize( -1 ), mPushPosition( 0 ) {
+		: mPosition( -1 ),
+		mSize( -1 ),
+		mPushPosition( 0 ) {
 		mPool = new std::vector<T>( );
 	}
 
 	template<class T>
 	Pool<T>::Pool( unsigned int size )
-		: mPosition( -1 ), mSize( size ), mPushPosition( 0 ) {
+		: mPosition( -1 ),
+		mSize( size ),
+		mPushPosition( 0 ) {
 		mPool = new std::vector<T>( size );
 	}
 
@@ -27,7 +31,7 @@ namespace GeneticSoup {
 
 	template<class T>
 	T & Pool<T>::At( unsigned int i ) {
-		return &( mPool->at( i ) );
+		return mPool->at( i );
 	}
 
 	template<class T>
@@ -76,6 +80,8 @@ namespace GeneticSoup {
 	T & Pool<T>::First( void ) {
 		if( mPool->size( ) > 0 ) {
 			return mPool->at( 0 );
+		} else {
+			throw std::invalid_argument( "Index out of boundaries." );
 		}
 	}
 	
@@ -83,6 +89,8 @@ namespace GeneticSoup {
 	T & Pool<T>::Last( void ) {
 		if( mPool->size( ) > 0 ) {
 			return mPool->at( mPool->size( ) - 1 );
+		} else {
+			throw std::invalid_argument( "Index out of boundaries." );
 		}
 	}
 
@@ -97,7 +105,16 @@ namespace GeneticSoup {
 	}
 
 	template<class T>
-	T Pool<T>::operator []( unsigned int i ) {
+	T & Pool<T>::operator []( unsigned int i ) {
+		if( i < mPool->size( ) ) {
+			return mPool->at( i );
+		} else {
+			throw std::invalid_argument( "Index out of boundaries." );
+		}
+	}
+
+	template<class T>
+	T const & Pool<T>::operator []( unsigned int i ) const {
 		if( i < mPool->size( ) ) {
 			return mPool->at( i );
 		} else {
