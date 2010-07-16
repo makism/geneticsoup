@@ -9,13 +9,14 @@ namespace GeneticSoup {
 
 	public:
 #pragma region Ctors/Dtors
+		Genome( void );
 		Genome( unsigned int, EncodingType );
 		virtual ~Genome( void );
 #pragma endregion
 
 		void Create( void );
 		float Fitness( void );
-		int Id( void );
+		unsigned long int Id( void );
 		bool IsMutated( void );
 		bool HasSuccessCrossover( void );
 		bool IsCreated( void );
@@ -26,13 +27,18 @@ namespace GeneticSoup {
 		virtual const std::string ToString( bool = false );
 
 #pragma region Operator overload
-		virtual T operator []( int );
+		virtual Genome<T> operator +( const Genome<T> & ) const;
+		virtual bool operator >( const Genome<T> & ) const;
+		virtual bool operator <( const Genome<T> & ) const;
+		virtual bool operator ==( const Genome<T> & ) const;
+		virtual T & operator []( unsigned int );
+		virtual T const & operator []( unsigned int ) const;
 #pragma endregion
 
 	protected:
 		float mFitness;
-		int mSize;
-		int mId;
+		unsigned int mSize;
+		unsigned long int mId;
 		bool mIsMutated;
 		bool mSucessCrossover;
 		EncodingType mEncodingType;
