@@ -34,8 +34,6 @@ public:
     }
 
     float EvaluateCallback(void) {
-        return 0.0f;
-
         int hits = 0;
         char curr;
 
@@ -98,11 +96,14 @@ int main(int argc, char** argv)
     island->Initialize();
     island->AdvanceEpoch();
 
-    std::cout << std::endl;
-    std::cout << island->CurrentPopulation()->At(0)->ToString(true) << std::endl;
+    while(island->CurrentPopulation()->Next())
+    {
+        StrGenome* curr = island->CurrentPopulation()->Current();
+        std::cout << curr->ToString(true) << std::endl;
+    }
 
     delete island;
 
-    _CrtDumpMemoryLeaks();
+    //_CrtDumpMemoryLeaks();
     return 0;
 }

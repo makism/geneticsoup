@@ -35,8 +35,6 @@ public:
     }
 
     float EvaluateCallback(void) {
-        return 0.0f;
-
         int hits = 0;
         char curr;
 
@@ -52,7 +50,7 @@ public:
             }
         }
 
-        return static_cast<float>(float(hits) / (mSize * mSize));
+        return float(hits) / float(mSize * mSize);
     }
 };
 
@@ -68,6 +66,7 @@ int main(int argc, char** argv)
 
     StrGenome* g = new StrGenome();
     g->Create();
+    g->Evaluate();
 
     population->Push(*g);
 
@@ -76,6 +75,6 @@ int main(int argc, char** argv)
 
     delete population;
 
-    _CrtDumpMemoryLeaks();
+    //_CrtDumpMemoryLeaks();
     return 0;
 }
