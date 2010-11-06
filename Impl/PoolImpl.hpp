@@ -1,145 +1,280 @@
 
 
-namespace GeneticSoup {
+namespace GeneticSoup
+{
 
-	template<class T>
-	std::ostream &operator <<( std::ostream &stream, Pool<T> pool )  {
-		stream << pool.ToString( );
-		return stream;
-	}
+    template<class T>
+    std::ostream& operator <<(std::ostream& stream, Pool<T> & pool)
+    {
+        stream << pool.ToString();
+        return stream;
+    }
 
-	template<class T>
-	Pool<T>::Pool( void )
-		: mPosition( -1 ),
-		mSize( -1 ),
-		mPushPosition( 0 ) {
-		mPool = new std::vector<T>( );
-	}
+#pragma region Ctor/Dtors
+    /* Empty ctor.
+     *
+     * The size of the pool is not specific and can grow.
+     */
+    template<class T>
+    Pool<T>::Pool(void)
+        : mHasFixedSize(false),
+          mPosition(-1),
+          mSize(-1),
+          mPushPosition(0)
+    {
 
-	template<class T>
-	Pool<T>::Pool( unsigned int size )
-		: mPosition( -1 ),
-		mSize( size ),
-		mPushPosition( 0 ) {
-		mPool = new std::vector<T>( size );
-	}
+        mPool = new std::vector<T>();
+    }
 
-	template<class T>
-	Pool<T>::~Pool( void ) {
-		delete mPool;
-	}
+    /* Default ctor.
+     *
+     * The pool created has a specific size and cannot grow larger.
+     */
+    template<class T>
+    Pool<T>::Pool(unsigned int size)
+        : mPosition(-1),
+          mSize(size),
+          mPushPosition(0)
+    {
 
-	template<class T>
-	T & Pool<T>::At( unsigned int i ) {
-		return mPool->at( i );
-	}
+        if (size == -1) {
+            mHasFixedSize = false;
+            mPool = new std::vector<T>();
 
-	template<class T>
-	void Pool<T>::Assign( unsigned int index, T & value ) {
-		if( index < mPool->size( ) - 1 && index > 0 ) {
-			(*mPool)[index] = value;
-		} else {
-			throw std::invalid_argument( "Index out of boundaries." );
-		}
-	}
+        } else {
+            mHasFixedSize = true;
+            mPool = new std::vector<T>(size);
+        }
+    }
 
-	template<class T>
-	bool Pool<T>::Push( T & value ) {
-		if( mPushPosition + 1 < mSize ) {
-			(*mPool)[mPushPosition++] = value;
+    /* Default dtor.
+     *
+     */
+    template<class T>
+    Pool<T>::~Pool(void)
+    {
+        mPool->clear();
+        delete mPool;
+    }
+#pragma endregion
 
-			return true;
-		}
+    /* Returns a reference to the object at the specific position.
+     *
+     */
+    template<class T>
+    T& Pool<T>::At(unsigned int i)
+    {
+        return mPool->at(i);
+    }
 
-		return false;
-	}
+    /* Assigns the value (by reference) to the specific position of the pool.
+     *
+     */
+    template<class T>
+    void Pool<T>::Assign(unsigned int index, T& value)
+    {
+        if (index < mPool->size() - 1 && index >= 0) {
+            (*mPool)[index] = value;
 
-	template<class T>
-	bool Pool<T>::Next( void ) {
-		if( mPosition + 1 < mPool->size( ) ) {
-			mPosition++;
+        } else {
+            throw std::invalid_argument("Index out of boundaries.");
+        }
+    }
 
-			return true;
-		} else {
+    /* Pushes back (if there is space) the specific value (by reference).
+     *
+     */
+    template<class T>
+    bool Pool<T>::Push(T& value)
+    {
+        if (mHasFixedSize) {
+            if (mPushPosition < mSize) {
+                (*mPool)[mPushPosition++] = value;
 
-			return false;
-		}
-	}
+                return true;
+            }
 
-	template<class T>
-	T & Pool<T>::Current( void ) {
-		return mPool->at( mPosition );
-	}
+        } else {
+            mPool->push_back(value);
+            mPushPosition++;
+        }
 
-	template<class T>
-	void Pool<T>::Reset( void ) {
-		mPosition = -1;
-	}
+        return false;
+    }
 
-	template<class T>
-	T & Pool<T>::First( void ) {
-		if( mPool->size( ) > 0 ) {
-			return mPool->at( 0 );
-		} else {
-			throw std::invalid_argument( "Index out of boundaries." );
-		}
-	}
-	
-	template<class T>
-	T & Pool<T>::Last( void ) {
-		if( mPool->size( ) > 0 ) {
-			return mPool->at( mPool->size( ) - 1 );
-		} else {
-			throw std::invalid_argument( "Index out of boundaries." );
-		}
-	}
+#pragma region Enumerator-like methods
+    /* Moves the internal index by one. Returns a bool value indicating the success of the procedure.
+     *
+     */
+    template<class T>
+    bool Pool<T>::Next(void)
+    {
+        if (mPosition + 1 < mPool->size()) {
+            mPosition++;
 
-	template<class T>
-	unsigned int Pool<T>::Size( void ) {
-		return mPool->size( );
-	}
+            return true;
 
-	template<class T>
-	std::vector<T>* Pool<T>::Reference( void ) {
-		return mPool;
-	}
+        } else {
 
-	template<class T>
-	T & Pool<T>::operator []( unsigned int i ) {
-		if( i < mPool->size( ) ) {
-			return mPool->at( i );
-		} else {
-			throw std::invalid_argument( "Index out of boundaries." );
-		}
-	}
+            return false;
+        }
+    }
 
-	template<class T>
-	T const & Pool<T>::operator []( unsigned int i ) const {
-		if( i < mPool->size( ) ) {
-			return mPool->at( i );
-		} else {
-			throw std::invalid_argument( "Index out of boundaries." );
-		}
-	}
+    /* Returns a reference to the object at the index that is produced by method Next().
+     *
+     */
+    template<class T>
+    T& Pool<T>::Current(void)
+    {
+        return mPool->at(mPosition);
+    }
 
-	template<class T>
-	const std::string Pool<T>::ToString( void ) {
-		std::ostringstream oss;
-		int size = mPool->size( );
+    /* Resets the internal index.
+     *
+     */
+    template<class T>
+    void Pool<T>::Reset(void)
+    {
+        mPosition = -1;
+    }
+#pragma endregion
 
-		oss << "[Pool: ";
+    /* Returns a reference to the first object of the pool.
+     *
+     */
+    template<class T>
+    T& Pool<T>::First(void)
+    {
+        if (mPool->size() > 0) {
+            return mPool->at(0);
 
-		for( int i=0; i<size; i++ ) {
-			oss << mPool->at(i);
+        } else {
+            throw std::invalid_argument("Index out of boundaries.");
+        }
+    }
 
-			if( i<size-1 ) {
-				oss << ", ";
-			}
-		}
+    /* Returns a reference to the last object of the pool.
+     *
+     */
+    template<class T>
+    T& Pool<T>::Last(void)
+    {
+        if (mPool->size() > 0) {
+            return mPool->at(mPool->size() - 1);
 
-		oss << "]";
+        } else {
+            throw std::invalid_argument("Index out of boundaries.");
+        }
+    }
 
-		return oss.str( );
-	}
+    /* Returns the size of internal pool (std::vector).
+     *
+     */
+    template<class T>
+    unsigned int Pool<T>::Size(void) const
+    {
+        if (mHasFixedSize) {
+            return mSize;
+
+        } else {
+            return static_cast<unsigned int>(mPool->size());
+        }
+    }
+
+    /* Returns a bool which indicates whether or not the size of the pool is fixed.
+     *
+     */
+    template<class T>
+    bool Pool<T>::HasFixedSize(void)
+    {
+        return mHasFixedSize;
+    }
+
+    /*
+     *
+     */
+    template<class T>
+    void Pool<T>::Clear(void)
+    {
+        delete mPool;
+        Reset();
+        mPushPosition = 0;
+    }
+
+    /* Returns a reference to the internal pool (std::vector).
+     *
+     */
+    template<class T>
+    std::vector<T> & Pool<T>::Ref(void)
+    {
+        return *mPool;
+    }
+
+    template<class T>
+    bool Pool<T>::Merge(const Pool& other)
+    {
+        return false;
+    }
+
+    /*
+     *
+     */
+    template<class T>
+    T& Pool<T>::operator [](unsigned int i)
+    {
+        if (i < mPool->size() && i >= 0) {
+            return mPool->at(i);
+
+        } else {
+            throw std::invalid_argument("Index out of boundaries.");
+        }
+    }
+
+    /*
+     *
+     */
+    template<class T>
+    T const& Pool<T>::operator [](unsigned int i) const
+    {
+        if (i < mPool->size() && i >= 0) {
+            return mPool->at(i);
+
+        } else {
+            throw std::invalid_argument("Index out of boundaries.");
+        }
+    }
+
+    /* Returns a string with all the contents of the pool.
+     *
+     */
+    template<class T>
+    const std::string Pool<T>::ToString(void)
+    {
+        std::ostringstream oss;
+        size_t size = mPool->size();
+
+        oss << "[";
+
+        if (mHasFixedSize) {
+            oss << "Fixed size";
+
+        } else {
+            oss << "Dynamic size";
+        }
+
+        oss << " Pool: ";
+
+        for (unsigned int i = 0; i < size; i++) {
+            oss << mPool->at(i);
+
+            if (i < size - 1) {
+                oss << ", ";
+            }
+        }
+
+        oss << "]";
+
+        return oss.str();
+    }
 
 }

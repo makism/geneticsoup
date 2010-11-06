@@ -2,9 +2,11 @@
 #define _NATURALNUMBERGENOME_HPP_
 
 
-namespace GeneticSoup {
+namespace GeneticSoup
+{
 
-	class NaturalNumberGenome: public Genome<unsigned int> {
+	class NaturalNumberGenome: public Genome<unsigned int>
+	{
 
 	public:
 #pragma region Max/Min/Padding
@@ -14,17 +16,16 @@ namespace GeneticSoup {
 #pragma endregion
 
 #pragma region Ctors/Dtors
-		NaturalNumberGenome( unsigned int, EncodingType );
-		~NaturalNumberGenome( void );
+		NaturalNumberGenome(void);
+		NaturalNumberGenome(unsigned int);
+		~NaturalNumberGenome(void);
 #pragma endregion
 
-		friend void Evaluate( NaturalNumberGenome& );
+		/*friend void Evaluate( NaturalNumberGenome& );
+		friend void Evaluate( NaturalNumberGenome* );*/
 
 	protected:
-		void RandomEncoding( void );
-		void PermutationEncoding( void );
-		void CustomEncoding( void );
-
+		void Generate(void);
 	};
 
 }
