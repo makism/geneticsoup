@@ -20,7 +20,8 @@ namespace GeneticSoup
         : mHasFixedSize(false),
           mPosition(-1),
           mSize(-1),
-          mPushPosition(0)
+          mPushPosition(0),
+          mIsEmpty(true)
     {
 
         mPool = new std::vector<T>();
@@ -34,7 +35,8 @@ namespace GeneticSoup
     Pool<T>::Pool(unsigned int size)
         : mPosition(-1),
           mSize(size),
-          mPushPosition(0)
+          mPushPosition(0),
+          mIsEmpty(true)
     {
 
         if (size == -1) {
@@ -75,6 +77,7 @@ namespace GeneticSoup
     {
         if (index < mPool->size() - 1 && index >= 0) {
             (*mPool)[index] = value;
+            mIsEmpty = false;
 
         } else {
             throw std::invalid_argument("Index out of boundaries.");
@@ -90,6 +93,7 @@ namespace GeneticSoup
         if (mHasFixedSize) {
             if (mPushPosition < mSize) {
                 (*mPool)[mPushPosition++] = value;
+                mIsEmpty = false;
 
                 return true;
             }
@@ -196,9 +200,20 @@ namespace GeneticSoup
     template<class T>
     void Pool<T>::Clear(void)
     {
+        mPool->clear();
         delete mPool;
         Reset();
+        mIsEmpty = true;
         mPushPosition = 0;
+    }
+
+    /*
+     *
+     */
+    template<class T>
+    bool Pool<T>::IsEmpty(void)
+    {
+        return mIsEmpty;
     }
 
     /* Returns a reference to the internal pool (std::vector).

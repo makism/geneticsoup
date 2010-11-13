@@ -2,66 +2,71 @@
 #define _POOL_HPP_
 
 
-namespace GeneticSoup {
+namespace GeneticSoup
+{
 
-	/* Pool is lightweight and specialized frontend of std::vector.
-	 * 
-	 * Although there is the possibility to access the internal
-	 * std::vector it not recommended.
-	 */
-	template<class T>
-	class Pool {
+    /* Pool is lightweight and specialized frontend of std::vector.
+     *
+     * Although there is the possibility to access the internal
+     * std::vector it not recommended.
+     */
+    template<class T>
+    class Pool
+    {
 
-	public:
+    public:
 #pragma region Ctors/Dtors
-		Pool( void );
-		Pool( unsigned int );
-		virtual ~Pool( void );
+        Pool(void);
+        Pool(unsigned int);
+        virtual ~Pool(void);
 #pragma endregion
 
 #pragma region Enumeration-like methods
-		bool Next( void );
-		T & Current( void );
-		void Reset( void );
+        bool Next(void);
+        T& Current(void);
+        void Reset(void);
 #pragma endregion
 
 #pragma region Vector-modifiers/accessors methods
-		T & At( unsigned int );
-		void Assign( unsigned int, T & );
-		bool Push( T & );
-		T & First( void );
-		T & Last( void );
-		unsigned int Size( void ) const;
-		bool HasFixedSize( void );
-		void Clear( void );
+        T& At(unsigned int);
+        void Assign(unsigned int, T&);
+        bool Push(T&);
+        T& First(void);
+        T& Last(void);
+        unsigned int Size(void) const;
+        bool HasFixedSize(void);
+        void Clear(void);
+        bool IsEmpty(void);
+        //unsigned int Count(void) const;
 #pragma endregion
 
 #pragma region
-		bool Merge( const Pool & );
+        bool Merge(const Pool&);
 #pragma endregion
 
-		std::vector<T> & Ref( void );
-		std::vector<T> * Ptr( void );
+        std::vector<T> & Ref(void);
+        std::vector<T> * Ptr(void);
 
-		virtual const std::string ToString( void );
+        virtual const std::string ToString(void);
 
 #pragma region Operator overload
-		virtual T const& operator []( unsigned int ) const;
-		virtual T & operator []( unsigned int );
+        virtual T const& operator [](unsigned int) const;
+        virtual T& operator [](unsigned int);
 #pragma endregion
 
-	protected:
-		unsigned int mPosition;
-		unsigned int mPushPosition;
-		unsigned int mSize;
-		std::vector<T> *mPool;
+    protected:
+        unsigned int mPosition;
+        unsigned int mPushPosition;
+        unsigned int mSize;
+        std::vector<T> *mPool;
+        bool mIsEmpty;
 
         typedef T mType;
 
-	private:
+    private:
 
-		bool mHasFixedSize;
-	};
+        bool mHasFixedSize;
+    };
 
 }
 
