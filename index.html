@@ -5,79 +5,77 @@
 	<head>
 		<title>GeneticSoup</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<script type="text/javascript" src="moo1.2.js"></script>
+		<script type="text/javascript">
+			window.addEvent('domready', function () {
+			
+				var start;
+				$$('.load-css').each(function(el) {
+					el.addEvent('click', function(e) {
+						e = new Event(e).stop();
+						var css = new Asset.css(el.get('rel'), { });
+					});
+				});
+				
+				new Asset.css("onion.css", { });
+			});
+		</script>
 		<style>
-		* {
-			color: #374140;
-			font-family: Tahoma;
-			font-size: 9px;
-		}
+			body {
+				background-color: #fff;
+			}
+
+			p {
+				text-align: justify;
+			}
+
+			#container {
+				margin-top: 5%;
+			}
+
+			#change {
+				padding: 20px 20px 0px 20px;
+			}
 		
-		body {
-			background-color: #fff;
-		}
-		
-		p {
-			text-align: justify;
-		}
-		
-		#container {
-			margin-top: 5%;
-		}
-		
-		#change {
-			padding: 20px 20px 0px 20px;
-		}
-		
-		#main {
-			width: 200px;
-			margin: 0px auto;
-			text-align: center;
-		}
-	
-		#credits {
-			width: 140px;
-			padding: 20px;
-			text-align: center;
-			position: absolute;
-			bottom: 0px;
-			left: 0px;
-		}
-		
-		#gitlink {
-			text-align: center;
-			padding: 10px 0px 0px 0px;
-			font-size: 10px;
-		}
-		
-		#gitlink a,
-		#gitlink a:visited,
-		#gitlink a:active,
-		#gitlink a:hover {
-			font-size: 10px;
-		}
-		
-		a,
-		a:visited,
-		a:active {
-			color: #ff4e21;
-			text-decoration: none;
-		}
-		
-		a:hover {
-			font-weight: bold;
-		}
+			#main {
+				width: 200px;
+				margin: 0px auto;
+				text-align: center;
+			}
+
+			#credits {
+				width: 140px;
+				padding: 20px;
+				text-align: center;
+				position: absolute;
+				bottom: 0px;
+				left: 0px;
+			}
+
+			#gitlink {
+				text-align: center;
+				padding: 10px 0px 0px 0px;
+				font-size: 10px;
+			}
+
+			#gitlink a,
+			#gitlink a:visited,
+			#gitlink a:active,
+			#gitlink a:hover {
+				font-size: 10px;
+			}
 		</style>
 	</head>
 	
 	<body>
 		<div id="change">
-			<span>tomato soup</span> • 
-			<span>miso soup</span> • 
-			<span>onion soup</span>
+			<a href="?theme=tomato" class="load-css" rel="tomato.css">tomato soup</a> • 
+			<a href="?theme=miso" class="load-css" rel="miso.css">miso soup</a> • 
+			<a href="?theme=onion" class="load-css" rel="onion.css">onion soup</a>
 		</div>
 		<div id="container">
 			<div id="main">
-				<img src="geneticsoup.png" width="180" height="176" alt="GeneticSoup Logo"/>
+				<div id="logo"></div>
 				<div style="clear: both;"></div>
 				<p>is a genetic algorithms template library written in C++. It's a port (only the G.A. parts) of <a href="">Spiral</a> to C++.</p>
 				<p>It provides a base (aggregated by many different classes) to build upon, depending your specific needs.</p>

@@ -1,0 +1,23 @@
+* {
+	color: #374140;
+	font-family: Tahoma;
+	font-size: 9px;
+}
+
+#logo {
+	width: 180px;
+	height: 176px;
+	background-image: url('geneticsoup_miso.png');
+	margin: 0px auto;
+}
+
+a,
+a:visited,
+a:active {
+	color: #ff4e21;
+	text-decoration: none;
+}
+
+a:hover {
+	font-weight: bold;
+}
