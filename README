@@ -1,3 +1,4 @@
-Originally the port to C++ was targeted for ARM processors.
-This idea has been dropped. And now it will become a template library under the name "Genetic Soup"
-The current code is alpha and it is most likely it will change on each commit :-)
+The current code is alpha and it is most likely it will change on each commit :-).
+
+This is a template library, which means that although it handles many aspects of genetic algorithms it cannot read your mind. So, you will have to write some (maybe a lot of) code.
+
