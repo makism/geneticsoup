@@ -2,29 +2,29 @@
 
 namespace GeneticSoup
 {
-
+/*
     template<class T>
     std::ostream& operator <<(std::ostream& stream, Population<T> pool)
     {
         stream << pool.ToString();
         return stream;
-    }
+    }*/
 
-#ifdef _WIN32
+// #ifdef _WIN32
     template<class T>
     unsigned long int Population<T>::_idCounter = 1;
-#endif
+// #endif
 
     template<class T>
     Population<T>::Population(void)
-        : Pool()
+        : Pool<T>()
     {
 
     }
 
     template<class T>
     Population<T>::Population(int size, std::string name)
-        : Pool(size),
+        : Pool<T>(size),
           mId(_idCounter++),
           mName(name),
           mMutations(0),
@@ -85,7 +85,7 @@ namespace GeneticSoup
             oss << " (\"" << mName << "\")";
         }
 
-        oss << " of size " << mSize;
+        oss << " of size " << this->mSize;
 
         return oss.str();
     }

@@ -3,10 +3,10 @@
 #include <stdio.h>
 #include <time.h>
 #include <math.h>
-#include <cstdlib>
-#define _CRTDBG_MAP_ALLOC
+// #include <cstdlib>
+// #define _CRTDBG_MAP_ALLOC
 #include <stdlib.h>
-#include <crtdbg.h>
+// #include <crtdbg.h>
 
 using namespace GeneticSoup;
 
@@ -15,7 +15,11 @@ class StrGenome: public Genome<std::string>
 {
 public:
     StrGenome(void)
-        : Genome(5) {
+        : Genome<std::string>(5) {
+
+    }
+
+    virtual ~StrGenome(void) {
 
     }
 
@@ -27,8 +31,10 @@ public:
                 char ch = (char)((rand() % 25) + 65);
                 oss << ch;
             }
+            
+            std::string temp = oss.str();
 
-            Push(oss.str());
+			this->Push(temp);
         }
 
     }
@@ -38,7 +44,7 @@ public:
         char curr;
 
         for (unsigned int i = 0; i < mSize; i++) {
-            std::string str = At(i);
+            std::string str = this->At(i);
 
             for (unsigned int x = 0; x < mSize; x++) {
                 curr = str.at(x);
@@ -49,15 +55,15 @@ public:
             }
         }
 
-        return static_cast<float>(static_cast<float>(hits) / (mSize * mSize));
+        return float(hits) / float(mSize * mSize);
     }
 };
 
-class MyIsland: public Island<StrGenome*>
+class MyIsland: public Island< StrGenome* >
 {
 public:
     MyIsland(void)
-        : Island(2, 5, 10) {
+        : Island< StrGenome* >(2, 5, 10) {
 
     }
 

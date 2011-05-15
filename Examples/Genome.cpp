@@ -3,6 +3,9 @@
 #include <stdio.h>
 #include <time.h>
 #include <math.h>
+#include <unistd.h>
+#include <iostream>
+#include <string>
 #include <cstdlib>
 
 using namespace GeneticSoup;
@@ -13,7 +16,7 @@ class StrGenome: public GeneticSoup::Genome<std::string>
 
 public:
     StrGenome(void)
-        : Genome(5) {
+        : Genome<std::string>(5) {
 
     }
 
@@ -25,8 +28,9 @@ public:
                 char ch = (char)((rand() % 25) + 65);
                 oss << ch;
             }
-
-            Push(oss.str());
+            
+            std::string temp = oss.str();
+            this->Push(temp);
         }
     }
 
@@ -35,7 +39,7 @@ public:
         char curr;
 
         for (unsigned int i = 0; i < mSize; i++) {
-            std::string str = At(i);
+            std::string str = this->At(i);
 
             for (unsigned int x = 0; x < mSize; x++) {
                 curr = str.at(x);
@@ -62,11 +66,11 @@ int main(int argc, char** argv)
     StrGenome strg;
     strg.Create();
     strg.Evaluate();
-
-    std::cout << strg.ToString(true) << std::endl;
-
-    StrGenome strg2(strg);
-    std::cout << strg2.ToString(true) << std::endl;
+// 
+//     std::cout << strg.ToString(true) << std::endl;
+// 
+//     StrGenome strg2(strg);
+//     std::cout << strg2.ToString(true) << std::endl;
 
     std::cin.get();
     return 0;

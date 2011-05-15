@@ -4,23 +4,14 @@ namespace GeneticSoup
 {
 
     template<class T>
-    std::ostream& operator <<(std::ostream& stream, Genome<T> & genome)
-    {
-        stream << genome.ToString(true);
-        return stream;
-    }
-
-#ifdef _WIN32
-    template<class T>
     unsigned long int Genome<T>::_idCounter = 0;
-#endif
 
     /* Empty ctor (used only interally).
      *
      */
     template<class T>
     Genome<T>::Genome(void)
-        : Pool()
+        : Pool<T>()
     {
 
     }
@@ -30,7 +21,7 @@ namespace GeneticSoup
      */
     template<class T>
     Genome<T>::Genome(const Genome& g)
-        : Pool(g.Size())
+        : Pool<T>(g.Size())
     {
         mFitness = g.mFitness;
         mId = g.mId;
@@ -39,7 +30,7 @@ namespace GeneticSoup
         mSucessCrossover = g.mSucessCrossover;
 
         for (int i = 0; i < g.Size(); i++) {
-            (*mPool)[i] = g[i];
+            *(Pool<T>::mPool)[i] = g[i];
         }
     }
 
@@ -49,7 +40,7 @@ namespace GeneticSoup
      */
     template<class T>
     Genome<T>::Genome(unsigned int size)
-        : Pool(size)
+        : Pool<T>(size)
     {
         Init();
 
@@ -184,11 +175,11 @@ namespace GeneticSoup
     template<class T>
     T& Genome<T>::operator [](unsigned int i)
     {
-        if (i < mPool->size() && i >= 0) {
-            return mPool->at(i);
+        if (i < Pool<T>::mPool->size() && i >= 0) {
+            return Pool<T>::mPool->at(i);
 
         } else {
-            throw std::invalid_argument("Index out of boundaries.");
+//             throw std::invalid_argument("Index out of boundaries.");
         }
     }
 
@@ -198,11 +189,11 @@ namespace GeneticSoup
     template<class T>
     T const& Genome<T>::operator [](unsigned int i) const
     {
-        if (i < mPool->size() && i >= 0) {
-            return mPool->at(i);
+        if (i < Pool<T>::mPool->size() && i >= 0) {
+            return Pool<T>::mPool->at(i);
 
         } else {
-            throw std::invalid_argument("Index out of boundaries.");
+//             throw std::invalid_argument("Index out of boundaries.");
         }
     }
 
@@ -231,7 +222,7 @@ namespace GeneticSoup
     bool Genome<T>::operator ==(const Genome<T> & other) const
     {
         for (unsigned int i = 0; i < mSize; i++) {
-            if ((*mPool)[i] != (*(other.mPool))[i])
+            if ((*(Pool<T>::mPool))[i] != (*(other.mPool))[i])
                 return false;
         }
 

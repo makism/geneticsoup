@@ -64,10 +64,16 @@ namespace GeneticSoup
         typedef T mType;
 
     private:
-
         bool mHasFixedSize;
     };
 
+	
+    template<class T>
+    std::ostream& operator <<(std::ostream& stream, Pool<T> & pool)
+    {
+        stream << pool.ToString();
+        return stream;
+    }
 }
 
 #endif

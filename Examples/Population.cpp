@@ -3,16 +3,17 @@
 #include <stdio.h>
 #include <time.h>
 #include <math.h>
-#define _CRTDBG_MAP_ALLOC
+// #define _CRTDBG_MAP_ALLOC
 #include <stdlib.h>
-#include <crtdbg.h>
+// #include <crtdbg.h>
 
+using namespace GeneticSoup;
 
-class StrGenome: public GeneticSoup::Genome<std::string>
+class StrGenome: public Genome<std::string>
 {
 public:
     StrGenome(void)
-        : Genome(5) {
+        : Genome<std::string>(5) {
 
     }
 
@@ -28,8 +29,10 @@ public:
                 char ch = (char)((rand() % 25) + 65);
                 oss << ch;
             }
+            
+            std::string temp = oss.str();
 
-            Push(oss.str());
+			this->Push(temp);
         }
 
     }
@@ -39,7 +42,7 @@ public:
         char curr;
 
         for (unsigned int i = 0; i < mSize; i++) {
-            std::string str = At(i);
+            std::string str = this->At(i);
 
             for (unsigned int x = 0; x < mSize; x++) {
                 curr = str.at(x);
@@ -62,16 +65,16 @@ int main(int argc, char** argv)
     srand((unsigned int) seconds);
     rand();
 
-    GeneticSoup::Population<StrGenome> *population = new GeneticSoup::Population<StrGenome>(10);
+    Population<StrGenome*> *population = new Population<StrGenome*>(10);
 
     StrGenome* g = new StrGenome();
     g->Create();
     g->Evaluate();
 
-    population->Push(*g);
+    population->Push(g);
 
-    StrGenome g2 = population->At(0);
-    std::cout << g2.ToString(true) << std::endl;
+    StrGenome* g2 = population->At(0);
+    std::cout << g2->ToString(true) << std::endl;
 
     delete population;
 

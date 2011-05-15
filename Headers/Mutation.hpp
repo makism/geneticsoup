@@ -3,13 +3,13 @@
 
 
 namespace GeneticSoup {
-
+	
 	template<class T>
 	class Mutation {
 
 	public:
-		static enum Type { Exchange2Mutation, InvertMutation, InsertMutation, ShiftMutation };
-
+		enum Type { Exchange2Mutation, InvertMutation, InsertMutation, ShiftMutation };
+		
 		T Exchange2( T );
 		T Invert( T );
 		T Insert( T );

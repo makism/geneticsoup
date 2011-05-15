@@ -45,7 +45,7 @@ namespace GeneticSoup
     template<class T>
     Population<T>* Island<T>::PreviousPopulation(void)
     {
-        return mPreviouPopulation;
+        return mPreviousPopulation;
     }
 
 }

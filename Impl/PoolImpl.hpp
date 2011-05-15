@@ -3,12 +3,6 @@
 namespace GeneticSoup
 {
 
-    template<class T>
-    std::ostream& operator <<(std::ostream& stream, Pool<T> & pool)
-    {
-        stream << pool.ToString();
-        return stream;
-    }
 
 #pragma region Ctor/Dtors
     /* Empty ctor.
@@ -23,7 +17,6 @@ namespace GeneticSoup
           mPushPosition(0),
           mIsEmpty(true)
     {
-
         mPool = new std::vector<T>();
     }
 
@@ -38,7 +31,6 @@ namespace GeneticSoup
           mPushPosition(0),
           mIsEmpty(true)
     {
-
         if (size == -1) {
             mHasFixedSize = false;
             mPool = new std::vector<T>();
@@ -80,7 +72,7 @@ namespace GeneticSoup
             mIsEmpty = false;
 
         } else {
-            throw std::invalid_argument("Index out of boundaries.");
+//             throw std::invalid_argument("Index out of boundaries.");
         }
     }
 
@@ -153,7 +145,7 @@ namespace GeneticSoup
             return mPool->at(0);
 
         } else {
-            throw std::invalid_argument("Index out of boundaries.");
+//             throw std::invalid_argument("Index out of boundaries.");
         }
     }
 
@@ -167,7 +159,7 @@ namespace GeneticSoup
             return mPool->at(mPool->size() - 1);
 
         } else {
-            throw std::invalid_argument("Index out of boundaries.");
+//             throw std::invalid_argument("Index out of boundaries.");
         }
     }
 
@@ -241,7 +233,7 @@ namespace GeneticSoup
             return mPool->at(i);
 
         } else {
-            throw std::invalid_argument("Index out of boundaries.");
+//             throw std::invalid_argument("Index out of boundaries.");
         }
     }
 
@@ -255,7 +247,7 @@ namespace GeneticSoup
             return mPool->at(i);
 
         } else {
-            throw std::invalid_argument("Index out of boundaries.");
+//             throw std::invalid_argument("Index out of boundaries.");
         }
     }
 
