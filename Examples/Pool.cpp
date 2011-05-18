@@ -1,46 +1,33 @@
 #include "GeneticSoup.hpp"
-// #define _CRTDBG_MAP_ALLOC
-#include <stdlib.h>
-// #include <crtdbg.h>
+#if _WIN32
+#	define _CRTDBG_MAP_ALLOC
+#	include <crtdbg.h>
+#endif
 
+typedef unsigned long long int uint64;
 
-int main(int argc, char** argv)
-{
+int main(int argc, char** argv) {
+    GeneticSoup::Pool<uint64> pool(10);
 
-    std::cout << "Genetic Soup Version: " << GENETICSOUP_VERSION_STRING << std::endl;
+	pool.Push(1);		// push 1
+	pool.Push(2);		// push 2
+	pool.Assign(9, 10); // assign 10 as the last element of the pool
+	pool.Push(3);		// push 3
 
-    GeneticSoup::Pool<int> *p = new GeneticSoup::Pool<int>(10);
-    GeneticSoup::Pool<double> p2(100);
-    GeneticSoup::Pool<unsigned long long int> p3;
+	uint64 &temp = pool.At(2);
+	temp = pool.First() + pool[9];
 
-    int temp = 10;
-    p->Push(temp);
+	if (!pool.IsEmpty()) {
+		while (pool.Next())	
+			std::cout << pool.Current() << std::endl;
+		pool.Reset();
+	}
+	
+	// or: std::cout << pool.ToString() << std::endl;
 
-    double temp2 = 34.034523663;
-    p2.Push(temp2);
-
-    unsigned long long int temp3 = std::numeric_limits<unsigned long long int>::max();
-    p3.Push(temp3);
-
-
-    std::cout << p->HasFixedSize() << "\t" << p->Size() << std::endl;
-    std::cout << p2.HasFixedSize() << "\t" << p2.Size() << std::endl;
-    std::cout << p3.HasFixedSize() << "\t" << p3.Size() << std::endl;
-
-
-    std::cout << "p->At(0): " << p->At(0) << std::endl;
-    std::cout << "p2[0]: " << p2[0] << std::endl;
-    std::cout << "p3[0]: " << p3[0] << std::endl;
-
-    std::cout << std::endl;
-
-    std::cout << p->ToString() << std::endl;
-    std::cout << p2.ToString() << std::endl;
-    std::cout << p3.ToString() << std::endl;
-
-    delete p;
-
-//     _CrtDumpMemoryLeaks();
+#if _WIN32
+	_CrtDumpMemoryLeaks();
+#endif
     return 0;
 }
 
