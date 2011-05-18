@@ -29,9 +29,8 @@ namespace GeneticSoup
         mIsCreated = g.mIsCreated;
         mSucessCrossover = g.mSucessCrossover;
 
-        for (int i = 0; i < g.Size(); i++) {
-            *(Pool<T>::mPool)[i] = g[i];
-        }
+        for (int i = 0; i < g.Size(); i++)
+            (*(Pool<T>::mPool))[i] = g[i];
     }
 
     /* Default ctor.
