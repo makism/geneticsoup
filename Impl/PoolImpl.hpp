@@ -61,13 +61,17 @@ namespace GeneticSoup
         return mPool->at(i);
     }
 
-    /* Assigns the value (by reference) to the specific position of the pool.
+    /* Assigns the value to the specific (zero-based) position of the pool.
      *
+	 * 
+	 * 
+	 * MODIFIED:
+	 * if (index < mPool->size() - 1&& index >= 0) {
      */
     template<class T>
-    void Pool<T>::Assign(unsigned int index, T& value)
+    void Pool<T>::Assign(unsigned int index, const T& value)
     {
-        if (index < mPool->size() - 1 && index >= 0) {
+        if (index < mPool->size() && index >= 0) {
             (*mPool)[index] = value;
             mIsEmpty = false;
 
@@ -80,7 +84,7 @@ namespace GeneticSoup
      *
      */
     template<class T>
-    bool Pool<T>::Push(T& value)
+    bool Pool<T>::Push(const T& value)
     {
         if (mHasFixedSize) {
             if (mPushPosition < mSize) {
@@ -97,13 +101,13 @@ namespace GeneticSoup
 
         return false;
     }
-
+    
 #pragma region Enumerator-like methods
     /* Moves the internal index by one. Returns a bool value indicating the success of the procedure.
      *
      */
     template<class T>
-    bool Pool<T>::Next(void)
+    bool Pool<T>::Next(void) 
     {
         if (mPosition + 1 < mPool->size()) {
             mPosition++;
@@ -120,7 +124,7 @@ namespace GeneticSoup
      *
      */
     template<class T>
-    T& Pool<T>::Current(void)
+    T& Pool<T>::Current(void) const
     {
         return mPool->at(mPosition);
     }
@@ -139,7 +143,7 @@ namespace GeneticSoup
      *
      */
     template<class T>
-    T& Pool<T>::First(void)
+    T& Pool<T>::First(void) const
     {
         if (mPool->size() > 0) {
             return mPool->at(0);
@@ -153,7 +157,7 @@ namespace GeneticSoup
      *
      */
     template<class T>
-    T& Pool<T>::Last(void)
+    T& Pool<T>::Last(void) const
     {
         if (mPool->size() > 0) {
             return mPool->at(mPool->size() - 1);
@@ -181,7 +185,7 @@ namespace GeneticSoup
      *
      */
     template<class T>
-    bool Pool<T>::HasFixedSize(void)
+    bool Pool<T>::HasFixedSize(void) const
     {
         return mHasFixedSize;
     }
@@ -203,7 +207,7 @@ namespace GeneticSoup
      *
      */
     template<class T>
-    bool Pool<T>::IsEmpty(void)
+    bool Pool<T>::IsEmpty(void) const
     {
         return mIsEmpty;
     }
@@ -251,32 +255,26 @@ namespace GeneticSoup
         }
     }
 
-    /* Returns a string with all the contents of the pool.
-     *
-     */
     template<class T>
-    const std::string Pool<T>::ToString(void)
+    const std::string Pool<T>::ToString(void) const
     {
         std::ostringstream oss;
         size_t size = mPool->size();
 
         oss << "[";
 
-        if (mHasFixedSize) {
+        if (mHasFixedSize)
             oss << "Fixed size";
-
-        } else {
+        else
             oss << "Dynamic size";
-        }
 
         oss << " Pool: ";
 
         for (unsigned int i = 0; i < size; i++) {
             oss << mPool->at(i);
 
-            if (i < size - 1) {
+            if (i < size - 1)
                 oss << ", ";
-            }
         }
 
         oss << "]";
