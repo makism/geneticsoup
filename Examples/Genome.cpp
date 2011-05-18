@@ -1,12 +1,10 @@
-#include "GeneticSoup.hpp"
-#include <stdlib.h>
-#include <stdio.h>
+#include <string>
+#include <algorithm> 
 #include <time.h>
 #include <math.h>
-#include <unistd.h>
-#include <iostream>
-#include <string>
-#include <cstdlib>
+
+#include "GeneticSoup.hpp"
+
 
 using namespace GeneticSoup;
 
@@ -24,34 +22,31 @@ public:
         for (unsigned int i = 0; i < mSize; i++) {
             std::ostringstream oss;
 
-            for (unsigned int x = 0; x < mSize; x++) {
-                char ch = (char)((rand() % 25) + 65);
-                oss << ch;
-            }
+            for (unsigned int x = 0; x < mSize; x++)
+                oss << (char)((rand() % 25) + 65);
             
-            std::string temp = oss.str();
-            this->Push(temp);
+            this->Push(oss.str());
         }
     }
 
     float EvaluateCallback(void) {
-        int hits = 0;
-        char curr;
-
-        for (unsigned int i = 0; i < mSize; i++) {
-            std::string str = this->At(i);
-
-            for (unsigned int x = 0; x < mSize; x++) {
-                curr = str.at(x);
-
-                if (curr == 'A') {
-                    hits++;
-                }
-            }
-        }
-
+        int hits = std::for_each(this->Ref().begin(), this->Ref().end(), parseString());
+		
         return static_cast<float>(static_cast<float>(hits) / (mSize * mSize));
     }
+    
+private:
+    struct parseString {
+		int hits;
+		
+		void operator() (std::string &str) {
+			hits += std::count(str.begin(), str.end(), 'A');
+		}
+		
+		operator int() {
+			return hits;
+		}
+	};
 };
 
 
@@ -63,15 +58,18 @@ int main(int argc, char** argv)
     srand((unsigned int) seconds);
     rand();
 
+	// Create a new StrGenome and Evaluate it.
     StrGenome strg;
     strg.Create();
     strg.Evaluate();
-// 
-//     std::cout << strg.ToString(true) << std::endl;
-// 
-//     StrGenome strg2(strg);
-//     std::cout << strg2.ToString(true) << std::endl;
 
-    std::cin.get();
+    std::cout << strg.ToString(true) << std::endl;
+
+	// Copy-ctor.
+    StrGenome strg2(strg);
+	
+    std::cout << strg2.ToString(true) << std::endl;
+
+	
     return 0;
 }
