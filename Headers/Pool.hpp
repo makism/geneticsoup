@@ -4,50 +4,53 @@
 
 namespace GeneticSoup
 {
-
-    /* Pool is lightweight and specialized frontend of std::vector.
-     *
-     * Although there is the possibility to access the internal
-     * std::vector it not recommended.
-     */
+	/*! \brief Pool is a specialized frontend to std::vector. */
     template<class T>
     class Pool
     {
 
     public:
-#pragma region Ctors/Dtors
+		/*! Intantiates a Pool with dynamic size. */
         Pool(void);
-        Pool(unsigned int);
+		
+		/*! Intantiates a fixed-size Pool.
+		 * \param size The size of the pool
+		 */
+        Pool(unsigned int size);
+		
+		/*! Destroy the Pool and clean the memory. */
         virtual ~Pool(void);
-#pragma endregion
 
 #pragma region Enumeration-like methods
         bool Next(void);
-        T& Current(void);
+        T& Current(void) const;
         void Reset(void);
 #pragma endregion
 
 #pragma region Vector-modifiers/accessors methods
-        T& At(unsigned int);
-        void Assign(unsigned int, T&);
-        bool Push(T&);
-        T& First(void);
-        T& Last(void);
+        T& At(unsigned int offset);
+        void Assign(unsigned int index, const T& value);
+        bool Push(const T& value);
+        T& First(void) const;
+        T& Last(void) const;
         unsigned int Size(void) const;
-        bool HasFixedSize(void);
+        bool HasFixedSize(void) const;
         void Clear(void);
-        bool IsEmpty(void);
+        bool IsEmpty(void) const;
         //unsigned int Count(void) const;
 #pragma endregion
 
 #pragma region
-        bool Merge(const Pool&);
+		/*! Merge a Pool with the current.
+		 * \param p Source Pool
+		 * \return Whether the merge has been completed */
+        bool Merge(const Pool &p);
 #pragma endregion
 
         std::vector<T> & Ref(void);
         std::vector<T> * Ptr(void);
 
-        virtual const std::string ToString(void);
+        virtual const std::string ToString(void) const;
 
 #pragma region Operator overload
         virtual T const& operator [](unsigned int) const;
@@ -55,15 +58,21 @@ namespace GeneticSoup
 #pragma endregion
 
     protected:
+		/*! */
         unsigned int mPosition;
+		/*! */
         unsigned int mPushPosition;
+		/*! The size of the internal vector. */
         unsigned int mSize;
+		/*! The internal vector. */
         std::vector<T> *mPool;
+		/*! Indicates whether the internal vector has any children at all. */
         bool mIsEmpty;
 
         typedef T mType;
 
     private:
+		/*! Indicates whether the internal vector has a fixed sized and cannot be resized dynamically. */
         bool mHasFixedSize;
     };
 
