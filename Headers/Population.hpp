@@ -19,8 +19,8 @@ namespace GeneticSoup
         unsigned int Crossovers(void);
         unsigned int Migrations(void);
 		long unsigned int Id(void);
-		
-		virtual bool Push(const T& value);
+        
+// 		virtual bool Push(const T& value);
 
         virtual const std::string ToString(void);
 

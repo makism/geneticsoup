@@ -29,12 +29,16 @@ namespace GeneticSoup
     {
 
     }
-
+    
     template<class T>
     Population<T>::~Population(void)
     {
+        typename std::vector<T>::iterator it;
+        
+        for (it=this->mPool->begin(); it<this->mPool->end(); it++ )
+            delete(*it);
     }
-    
+
     template<class T>
     const std::string Population<T>::Name(void)
     {
@@ -65,14 +69,14 @@ namespace GeneticSoup
         return mId;
     }
     
-    template<class T>
-    bool Population<T>::Push(const T& value)
-	{
-		Parent* p = static_cast<Parent*>(value);
-		p->mParent = this;
+//     template<class T>
+//     bool Population<T>::Push(const T& value)
+// 	{
+// // 		Parent p = static_cast<Parent>(value);
+// // 		p.mParent = this;
 		
-		return Pool<T>::Push(value);
-	}
+// 		return Pool<T>::Push(value);
+// 	}
 
     template<class T>
     const std::string Population<T>::ToString(void)
