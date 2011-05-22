@@ -1,60 +1,52 @@
 #include "GeneticSoup.hpp"
-#include <stdlib.h>
-#include <stdio.h>
 #include <time.h>
 #include <math.h>
-// #define _CRTDBG_MAP_ALLOC
-#include <stdlib.h>
-// #include <crtdbg.h>
+#include <algorithm>
+#if _WIN32
+#	define _CRTDBG_MAP_ALLOC
+#	include <crtdbg.h>
+#endif
+
 
 using namespace GeneticSoup;
 
 class StrGenome: public Genome<std::string>
 {
 public:
-    StrGenome(void)
-        : Genome<std::string>(5) {
-
-    }
-
-    virtual ~StrGenome(void) {
-
-    }
-
-    void Generate(void) {
-        for (unsigned int i = 0; i < mSize; i++) {
-            std::ostringstream oss;
-
-            for (unsigned int x = 0; x < mSize; x++) {
-                char ch = (char)((rand() % 25) + 65);
-                oss << ch;
-            }
-            
-            std::string temp = oss.str();
-
-			this->Push(temp);
-        }
-
-    }
-
-    float EvaluateCallback(void) {
-        int hits = 0;
-        char curr;
-
-        for (unsigned int i = 0; i < mSize; i++) {
-            std::string str = this->At(i);
-
-            for (unsigned int x = 0; x < mSize; x++) {
-                curr = str.at(x);
-
-                if (curr == 'A') {
-                    hits++;
-                }
-            }
-        }
-
-        return float(hits) / float(mSize * mSize);
-    }
+	StrGenome(void)
+	: Genome<std::string>(5) {
+		
+	}
+	
+	void Generate(void) {
+		for (unsigned int i = 0; i < mSize; i++) {
+			std::ostringstream oss;
+			
+			for (unsigned int x = 0; x < mSize; x++)
+				oss << (char)((rand() % 25) + 65);
+			
+			this->Push(oss.str());
+		}
+	}
+	
+	float EvaluateCallback(void) {
+		int hits = std::for_each(this->Ref().begin(), this->Ref().end(), parseString());
+		
+		return static_cast<float>(static_cast<float>(hits) / (mSize * mSize));
+	}
+	
+private:
+	struct parseString {
+		int hits;
+		
+		void operator() (std::string &str) {
+			hits += std::count(str.begin(), str.end(), 'A');
+		}
+		
+		operator int() {
+			return hits;
+		}
+	};
 };
 
 int main(int argc, char** argv)
@@ -64,20 +56,32 @@ int main(int argc, char** argv)
 
     srand((unsigned int) seconds);
     rand();
+	
+    Population<StrGenome*> *population = new Population<StrGenome*>(10, "Initial");
+	
+	for (unsigned int i=0; i<population->Size(); i++) {
+		StrGenome* g = new StrGenome();
+		g->Create();
+		g->Evaluate();
+		
+		population->Push(g);
+		
+		// The same effect:
+		// (*population)[i] = g;
+		// for:
+		// population->Assign(i, g);
+	}
 
-    Population<StrGenome*> *population = new Population<StrGenome*>(10);
+// 	std::cout << population << std::endl;
+// 
+// 	while (population->Next())
+// 		std::cout << population->Current() << std::endl;
 
-    StrGenome* g = new StrGenome();
-    g->Create();
-    g->Evaluate();
 
-    population->Push(g);
+//     delete population;
 
-    StrGenome* g2 = population->At(0);
-    std::cout << g2->ToString(true) << std::endl;
-
-    delete population;
-
-    //_CrtDumpMemoryLeaks();
-    return 0;
+#if _WIN32
+	_CrtDumpMemoryLeaks();
+#endif
+	return 0;
 }
