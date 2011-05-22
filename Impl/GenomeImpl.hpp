@@ -11,9 +11,7 @@ namespace GeneticSoup
      */
     template<class T>
     Genome<T>::Genome(void)
-        : Pool<T>()
     {
-
     }
     
     /* Copy ctor-like.
@@ -48,7 +46,6 @@ namespace GeneticSoup
     template<class T>
     Genome<T>::~Genome(void)
     {
-// 		delete static_cast< Population< Genome<T> >* >(mParent);
     }
 
     /*
