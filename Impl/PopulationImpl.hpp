@@ -1,19 +1,11 @@
+#include <Pool.hpp>
 
 
 namespace GeneticSoup
 {
-/*
-    template<class T>
-    std::ostream& operator <<(std::ostream& stream, Population<T> pool)
-    {
-        stream << pool.ToString();
-        return stream;
-    }*/
 
-// #ifdef _WIN32
     template<class T>
     unsigned long int Population<T>::_idCounter = 1;
-// #endif
 
     template<class T>
     Population<T>::Population(void)
@@ -23,7 +15,7 @@ namespace GeneticSoup
     }
 
     template<class T>
-    Population<T>::Population(int size, std::string name)
+    Population<T>::Population(int size, const std::string& name)
         : Pool<T>(size),
           mId(_idCounter++),
           mName(name),
@@ -41,9 +33,8 @@ namespace GeneticSoup
     template<class T>
     Population<T>::~Population(void)
     {
-
     }
-
+    
     template<class T>
     const std::string Population<T>::Name(void)
     {
@@ -73,6 +64,15 @@ namespace GeneticSoup
     {
         return mId;
     }
+    
+    template<class T>
+    bool Population<T>::Push(const T& value)
+	{
+		Parent* p = static_cast<Parent*>(value);
+		p->mParent = this;
+		
+		return Pool<T>::Push(value);
+	}
 
     template<class T>
     const std::string Population<T>::ToString(void)
