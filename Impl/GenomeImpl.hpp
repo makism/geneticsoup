@@ -15,24 +15,23 @@ namespace GeneticSoup
     {
 
     }
-
+    
     /* Copy ctor-like.
      *
      */
     template<class T>
     Genome<T>::Genome(const Genome& g)
-        : Pool<T>(g.Size())
+        : Pool<T>(g.Size()),
+		  mFitness(g.mFitness),
+		  mId(g.mId),
+		  mIsMutated(g.mIsMutated),
+		  mIsCreated(g.mIsCreated),  
+		  mSucessCrossover(g.mSucessCrossover)
     {
-        mFitness = g.mFitness;
-        mId = g.mId;
-        mIsMutated = g.mIsMutated;
-        mIsCreated = g.mIsCreated;
-        mSucessCrossover = g.mSucessCrossover;
-
         for (int i = 0; i < g.Size(); i++)
             (*(Pool<T>::mPool))[i] = g[i];
     }
-
+    
     /* Default ctor.
      *
      * For the time being it only accepts the total number of genes.
@@ -45,15 +44,11 @@ namespace GeneticSoup
 
         mSize = size;
     }
-
-    /* Empty dtor.
-     *
-     * Nothing to delete. Pool`s dtor will do the job.
-     */
+    
     template<class T>
     Genome<T>::~Genome(void)
     {
-
+// 		delete static_cast< Population< Genome<T> >* >(mParent);
     }
 
     /*
@@ -81,6 +76,7 @@ namespace GeneticSoup
         mIsMutated = false;
         mSucessCrossover = false;
         mIsCreated = false;
+		mParent = 0;
     }
 
     /* Generates the genome.
@@ -109,19 +105,6 @@ namespace GeneticSoup
     {
 
     }
-
-    /* Evalute the genome using the friend fuction.
-     *
-     */
-    /*template<class T>
-    void Genome<T>::Evaluate( void ) {
-    	mFitness = EvaluateCallback( *this );
-    }*/
-
-    /*template<class T>
-    void Genome<T>::Evaluate( void ) {
-    	mFitness = Genome<T>::_EvaluateCb( *this );
-    }*/
 
     /* Returns the crossover status of the genome.
      *
@@ -167,6 +150,12 @@ namespace GeneticSoup
     {
         return mIsCreated;
     }
+    
+    template<class T>
+    Population< Genome<T> >* Genome<T>::Parent(void) const
+    {
+		return static_cast< Population< Genome<T> >* >(mParent);
+	}
 
     /*
      *
@@ -247,3 +236,4 @@ namespace GeneticSoup
     }
 
 }
+
