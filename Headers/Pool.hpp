@@ -80,9 +80,17 @@ namespace GeneticSoup
     template<class T>
     std::ostream& operator <<(std::ostream& stream, Pool<T> & pool)
     {
-        stream << pool.ToString();
-        return stream;
+		stream << pool.ToString();
+		return stream;
     }
+    
+    template<class T>
+    std::ostream& operator <<(std::ostream& stream, Pool<T> * pool)
+	{
+		stream << pool->ToString();
+		return stream;
+	}
+
 }
 
 #endif
