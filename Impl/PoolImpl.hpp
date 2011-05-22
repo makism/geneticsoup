@@ -1,10 +1,9 @@
+#include <vector>
 
 
 namespace GeneticSoup
 {
 
-
-#pragma region Ctor/Dtors
     /* Empty ctor.
      *
      * The size of the pool is not specific and can grow.
@@ -49,8 +48,8 @@ namespace GeneticSoup
     {
         mPool->clear();
         delete mPool;
+        mPool = 0;
     }
-#pragma endregion
 
     /* Returns a reference to the object at the specific position.
      *
