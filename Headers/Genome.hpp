@@ -6,6 +6,10 @@ namespace GeneticSoup {
 
 	template<class T>
 	class Genome: public Pool<T>, public Parent {
+        
+    public:
+        template<class U>
+        friend class Mutation;
 	
 	public:
 		/*! */
