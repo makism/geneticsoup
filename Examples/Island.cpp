@@ -1,69 +1,18 @@
 #include "GeneticSoup.hpp"
-#include <stdlib.h>
-#include <stdio.h>
-#include <time.h>
-#include <math.h>
-// #include <cstdlib>
-// #define _CRTDBG_MAP_ALLOC
-#include <stdlib.h>
-// #include <crtdbg.h>
+#include "StrGenome.hpp"
+#if _WIN32
+#   define _CRTDBG_MAP_ALLOC
+#   include <crtdbg.h>
+#endif
 
 using namespace GeneticSoup;
 
 
-class StrGenome: public Genome<std::string>
-{
-public:
-    StrGenome(void)
-        : Genome<std::string>(5) {
-
-    }
-
-    virtual ~StrGenome(void) {
-
-    }
-
-    void Generate(void) {
-        for (unsigned int i = 0; i < mSize; i++) {
-            std::ostringstream oss;
-
-            for (unsigned int x = 0; x < mSize; x++) {
-                char ch = (char)((rand() % 25) + 65);
-                oss << ch;
-            }
-            
-            std::string temp = oss.str();
-
-			this->Push(temp);
-        }
-
-    }
-
-    float EvaluateCallback(void) {
-        int hits = 0;
-        char curr;
-
-        for (unsigned int i = 0; i < mSize; i++) {
-            std::string str = this->At(i);
-
-            for (unsigned int x = 0; x < mSize; x++) {
-                curr = str.at(x);
-
-                if (curr == 'A') {
-                    hits++;
-                }
-            }
-        }
-
-        return float(hits) / float(mSize * mSize);
-    }
-};
-
-class MyIsland: public Island< StrGenome* >
+class MyIsland: public Island<StrGenome*>
 {
 public:
     MyIsland(void)
-        : Island< StrGenome* >(2, 5, 10) {
+        : Island<StrGenome*>(2, 5, 10) {
 
     }
 
@@ -72,13 +21,13 @@ public:
     }
 
     void Initialize(void) {
-        for (unsigned int i = 0; i < mPopulationSize; i++) {
-            StrGenome* genome = new StrGenome();
-            genome->Create();
-            genome->Evaluate();
-
-            mCurrentPopulation->Push(genome);
-        }
+//         for (unsigned int i = 0; i < mPopulationSize; i++) {
+//             StrGenome* genome = new StrGenome();
+//             genome->Create();
+//             genome->Evaluate();
+// 
+//             mCurrentPopulation->Push(genome);
+//         }
     }
 
     void AdvanceEpoch(void) {
@@ -87,9 +36,6 @@ public:
 
 };
 
-
-
-
 int main(int argc, char** argv)
 {
     time_t seconds;
@@ -97,19 +43,26 @@ int main(int argc, char** argv)
 
     srand((unsigned int) seconds);
     rand();
+	
+	MyIsland island;
+	island.Initialize();
+	island.AdvanceEpoch();
 
-    MyIsland* island = new MyIsland();
-    island->Initialize();
-    island->AdvanceEpoch();
+//     MyIsland* island = new MyIsland();
+//     island->Initialize();
+//     island->AdvanceEpoch();
+// 
+//     while(island->CurrentPopulation()->Next())
+//     {
+//         StrGenome* curr = island->CurrentPopulation()->Current();
+//         std::cout << curr->ToString(true) << std::endl;
+//     }
 
-    while(island->CurrentPopulation()->Next())
-    {
-        StrGenome* curr = island->CurrentPopulation()->Current();
-        std::cout << curr->ToString(true) << std::endl;
-    }
+//     delete island;
 
-    delete island;
+#if _WIN32
+    _CrtDumpMemoryLeaks();
+#endif
 
-    //_CrtDumpMemoryLeaks();
     return 0;
 }
