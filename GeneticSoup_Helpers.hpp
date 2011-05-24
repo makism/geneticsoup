@@ -15,6 +15,7 @@ namespace GeneticSoup {
         // Based on
         // http://www.mitchr.me/SS/exampleCode/boost/boostRandEx.cpp.html
         // and http://sci.tuomastonteri.fi/programming/cplus/wrapper-to-boost-random
+        // !!! needs optimization !!!
         class Random {
         public:
             ~Random(void) {
@@ -32,6 +33,14 @@ namespace GeneticSoup {
             
             double Generate(void) const {
                 return (*uniDblGen)();
+            }
+            
+            int Generate(int start, int end) const {
+                boost::uniform_int<> uniInt(start, end);
+                
+                boost::variate_generator<boost::minstd_rand&, boost::uniform_int<> > uniIntGen(*baseGen, uniInt);
+                
+                return uniIntGen.operator()();
             }
             
         private:
@@ -63,9 +72,9 @@ namespace GeneticSoup {
         private:
             static Random* mInstance;
                 
-            boost::minstd_rand * baseGen;//(1234u);
+            boost::minstd_rand * baseGen;
             boost::uniform_real<> * uniDblUnit;
-            boost::variate_generator<boost::minstd_rand&, boost::uniform_real<> > * uniDblGen; //(baseGen, uniDblUnit);
+            boost::variate_generator<boost::minstd_rand&, boost::uniform_real<> > * uniDblGen;
         };
         
         Random* Random::mInstance = 0;
