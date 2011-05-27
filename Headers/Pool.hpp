@@ -56,6 +56,9 @@ namespace GeneticSoup
         virtual T const& operator [](unsigned int) const;
         virtual T& operator [](unsigned int);
 #pragma endregion
+        
+    protected:
+        typedef T mType;
 
     protected:
 		/*! */
@@ -68,9 +71,7 @@ namespace GeneticSoup
         std::vector<T> *mPool;
 		/*! Indicates whether the internal vector has any children at all. */
         bool mIsEmpty;
-
-        typedef T mType;
-
+        
     private:
 		/*! Indicates whether the internal vector has a fixed sized and cannot be resized dynamically. */
         bool mHasFixedSize;
