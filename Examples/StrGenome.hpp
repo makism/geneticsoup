@@ -43,6 +43,11 @@ private:
 		
 		void operator() (std::string &str) {
 			hits += std::count(str.begin(), str.end(), 'A');
+            hits += std::count(str.begin(), str.end(), 'E');
+            hits += std::count(str.begin(), str.end(), 'I');
+            hits += std::count(str.begin(), str.end(), 'O');
+            hits += std::count(str.begin(), str.end(), 'U');
+            hits += std::count(str.begin(), str.end(), 'Y');
 		}
 		
 		operator int() {
