@@ -8,33 +8,33 @@
 using namespace GeneticSoup;
 
 
-class MyIsland: public Island<StrGenome*>
-{
-public:
-    MyIsland(void)
-        : Island<StrGenome*>(2, 5, 10) {
-
-    }
-
-    ~MyIsland(void) {
-
-    }
-
-    void Initialize(void) {
-//         for (unsigned int i = 0; i < mPopulationSize; i++) {
-//             StrGenome* genome = new StrGenome();
-//             genome->Create();
-//             genome->Evaluate();
+// class MyIsland: public Island<StrGenome*>
+// {
+// public:
+//     MyIsland(void)
+//         : Island<StrGenome*>(2, 5, 10) {
 // 
-//             mCurrentPopulation->Push(genome);
-//         }
-    }
-
-    void AdvanceEpoch(void) {
-        Island<StrGenome*>::AdvanceEpoch();
-    }
-
-};
+//     }
+// 
+//     ~MyIsland(void) {
+// 
+//     }
+// 
+//     void Initialize(void) {
+// //         for (unsigned int i = 0; i < mPopulationSize; i++) {
+// //             StrGenome* genome = new StrGenome();
+// //             genome->Create();
+// //             genome->Evaluate();
+// // 
+// //             mCurrentPopulation->Push(genome);
+// //         }
+//     }
+// 
+//     void AdvanceEpoch(void) {
+//         Island<StrGenome*>::AdvanceEpoch();
+//     }
+// 
+// };
 
 int main(int argc, char** argv)
 {
@@ -44,9 +44,9 @@ int main(int argc, char** argv)
     srand((unsigned int) seconds);
     rand();
 	
-	MyIsland island;
-	island.Initialize();
-	island.AdvanceEpoch();
+// 	MyIsland island;
+// 	island.Initialize();
+// 	island.AdvanceEpoch();
 
 //     MyIsland* island = new MyIsland();
 //     island->Initialize();

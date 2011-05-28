@@ -3,22 +3,40 @@
 
 
 namespace GeneticSoup {
-    
-    template<class T>
-    class Mutation {
-    public:
-        enum Type { Exchange2Mutation, InvertMutation, InsertMutation, ShiftMutation };
-        
-    public:
-        static void Exchange2(T&);
-        static T& Invert(T&);
-        static T& Insert(T&);
-        static T& Shift(T&);
-    
-    public:
-        static const float MUTATION_RATE;
-    };
-    
+
+template<class T>
+class Mutation {
+
+public:
+    enum Operator { Exchange2, Invert, Insert, Shift };
+
+public:
+    template<class U> friend void Custom(T&);
+
+public:
+    Mutation(void);
+    Mutation(Operator mutationOp);
+    bool Mutate(void);
+
+    void operator()(void) const;
+
+protected:
+    void PerformMutation(void);
+
+    void _Exchange2(T&);
+    void _Invert(T&);
+    void _Insert(T&);
+    void _Shift(T&);
+
+private:
+    typedef T mType;
+
+    Operator mMutationOp;
+
+public:
+    static const float MUTATION_RATE;
+};
+
 }
 
 #endif

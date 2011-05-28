@@ -9,6 +9,9 @@
 #include <iterator>
 #include <vector>
 
+#include <boost/type_traits.hpp>
+#include "boost/random.hpp" 
+
 #include "GeneticSoup_Version.hpp"
 #include "GeneticSoup_Helpers.hpp"
 #include "Headers/Parent.hpp"

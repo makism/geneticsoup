@@ -4,21 +4,16 @@
 
 namespace GeneticSoup {
 
-	template<class T>
-	class Selection {
+template<class T>
+class Selection {
 
-	public:
-		Selection( void );
-		Selection( Population<T> & );
-		virtual ~Selection( void );
-
-		void RouletteWheel( void );
-		void Elitism( void );
-		void Tournament( void );
-		void BinaryTournament( void );
-		void PropBinaryTournament( void );
-
-	};
+public:
+    static void RouletteWheel(Population<T>&);
+//         static void Elitism(void);
+//         static void Tournament(void);
+//         static void BinaryTournament(void);
+//         static void PropBinaryTournament(void);
+};
 
 }
 

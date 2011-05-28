@@ -7,7 +7,6 @@
 #else
 #   include <ctime>
 #endif
-#include "boost/random.hpp" 
 
 namespace GeneticSoup {
     namespace Helpers {

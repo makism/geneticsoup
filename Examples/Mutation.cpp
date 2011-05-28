@@ -1,7 +1,9 @@
 #include "GeneticSoup.hpp"
-#include "StrGenome.hpp"
+#include "BinaryNumberGenome.hpp"
 
 using namespace GeneticSoup;
+
+
 
 
 int main(int argc, char** argv)
@@ -11,18 +13,14 @@ int main(int argc, char** argv)
 
     srand((unsigned int) seconds);
     rand();
- 
     
-    StrGenome strGenome1;
-    strGenome1.Create();
-    strGenome1.Evaluate();
-    
-    std::cout << strGenome1 << std::endl;
-    
-    Mutation<StrGenome>::Exchange2(strGenome1);
-    
-    std::cout << strGenome1 << std::endl;
-    
+//     MyBinaryGenome bg;
+//     bg.Create();
+//     
+//     bg.Mutate();
+//     
+//     std::cout << bg << std::endl;
+//  
     delete Helpers::Random::Instance();
     return 0;
 }

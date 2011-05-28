@@ -7,7 +7,29 @@ namespace GeneticSoup
     const float Mutation<T>::MUTATION_RATE = 0.2f;
     
     template<class T>
-    void Mutation<T>::Exchange2(T& genome)
+    Mutation<T>::Mutation(void)
+    {
+        
+    }
+    
+    template<class T>
+    Mutation<T>::Mutation(Operator mutationOp)
+    : mMutationOp(mutationOp)
+    {
+    }
+    
+    template<class T>
+    void Mutation<T>::operator()(void) const
+    {
+    }
+    
+    template<class T>
+    bool Mutation<T>::Mutate(void)
+    {
+    }
+    
+    template<class T>
+    void Mutation<T>::_Exchange2(T& genome)
 	{
         if (Helpers::Random::Instance()->Generate() < MUTATION_RATE) {
             genome.mIsMutated = true;
@@ -24,24 +46,12 @@ namespace GeneticSoup
             genome.Assign(pos1, chromo2);
             genome.Assign(pos2, chromo1);
         }
-	}
-	
-	template<class T>
-    T& Mutation<T>::Invert(T& genome)
-	{
-		return genome;
-	}
-	
-	template<class T>
-    T& Mutation<T>::Insert(T& genome)
-	{
-		return genome;
-	}
-	
-	template<class T>
-    T& Mutation<T>::Shift(T& genome)
-	{
-		return genome;
-	}
-
+    }
+    
+    template<class T>
+    void Mutation<T>::_Invert(T& genome)
+    {
+        genome.mIsMutated = true;
+        genome[0] = !genome[0];
+    }
 }

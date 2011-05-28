@@ -4,54 +4,95 @@
 
 namespace GeneticSoup
 {
-	
-    template<typename T>
-    class Population: public Pool<T>
-    {
 
-    public:
-        Population(void);
-        Population(int, const std::string& = "");
-        virtual ~Population(void);
+template<typename T>
+class Population: public Pool<T>
+{
 
-        const std::string Name(void);
-        unsigned int Mutations(void);
-        unsigned int Crossovers(void);
-        unsigned int Migrations(void);
-		long unsigned int Id(void);
-        
-// 		virtual bool Push(const T& value);
+public:
+    /*! */
+    Population(void);
+    /*! */
+    Population(int, const std::string& = "");
+    /*! */
+    virtual ~Population(void);
 
-        virtual const std::string ToString(void);
+    /*! */
+    const std::string Name(void) const;
+    /*! */
+    unsigned int Mutations(void) const;
+    /*! */
+    unsigned int Crossovers(void) const;
+    /*! */
+    unsigned int Migrations(void) const;
+    /*! */
+    long unsigned int Id(void) const;
+    
+    /*! */
+    float AverageFitness(void) const;
+    /*! */
+    float WorstFitness(void) const;
+    /*! */
+    float BestFitness(void) const;
+    
+    /*! */
+    T BestGenome(void) const;
+    /*! */
+    T WorstGenome(void) const;
 
-    private:
-        static unsigned long int _idCounter;
-        std::string mName;
-        unsigned int mMutations;
-        unsigned int mCrossovers;
-        unsigned int mMigrations;
-        unsigned long int mId;
-        float mTotalFitness;
-        float mBestFitness;
-        float mWorstFitness;
-        float mAvgFitness;
+    /*! Overriden method from Pool<T>
+     * 
+     * When a genome is pushed to the population,
+     * we modify it (the genome) by assigning it,
+     * the current population (this) as it's parent.
+     */
+    virtual bool Push(const T& value);
 
-    };
+    virtual const std::string ToString(void);
 
-	
-	template<class T>
-	std::ostream& operator <<(std::ostream& stream, Population<T> & population)
-	{
-		stream << population.ToString();
-		return stream;
-	}
+private:
+    static unsigned long int _idCounter;
+    
+    /*! A short descriptive title for the population, like 'initial'. */
+    std::string mName;
+    /*! The total number of mutations. */
+    unsigned int mMutations;
+    /*! The total number of crossovers. */
+    unsigned int mCrossovers;
+    /*! The total number of migrations. */
+    unsigned int mMigrations;
+    /*! A unique id. */
+    unsigned long int mId;
+    
+    /*! The summary of all genomes' fitnesses. */
+    float mTotalFitness;
+    /*! The best fitness that a gnome has demonstrated. */
+    float mBestFitness;
+    /*! The worst fitness that a genome has demonstrated. */
+    float mWorstFitness;
+    /*! The average fitness. */
+    float mAvgFitness;
+    
+    /*! A pointer to the best genome of the population. */
+    T mBestGenome;
+    /*! A pointer to the worst genome of the population. */
+    T mWorstGenome;
+};
 
-	template<class T>
-	std::ostream& operator <<(std::ostream& stream, Population<T> * population)
-	{
-		stream << population->ToString();
-		return stream;
-	}
+
+template<class T>
+std::ostream& operator <<(std::ostream& stream, Population<T> & population)
+{
+    stream << population.ToString();
+    return stream;
+}
+
+template<class T>
+std::ostream& operator <<(std::ostream& stream, Population<T> * population)
+{
+    stream << population->ToString();
+    return stream;
+}
 
 }
 

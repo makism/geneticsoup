@@ -4,30 +4,23 @@
 namespace GeneticSoup
 {
 
-	template<>
-	class NaturalNumberGenome: public Genome< unsigned int >
-	{
+class NaturalNumberGenome: public Genome< unsigned int >
+{
 
-	public:
-#pragma region Max/Min/Padding
-		static unsigned int Max;
-		static unsigned int Min;
-		static unsigned int Pad;
-#pragma endregion
+public:
+    static unsigned int Max;
+    static unsigned int Min;
+    static unsigned int Pad;
 
-#pragma region Ctors/Dtors
-		NaturalNumberGenome(void);
-		NaturalNumberGenome(unsigned int);
-		~NaturalNumberGenome(void);
-#pragma endregion
+    NaturalNumberGenome(void);
+    NaturalNumberGenome(unsigned int);
+    ~NaturalNumberGenome(void);
 
-		/*friend void Evaluate( NaturalNumberGenome& );
-		friend void Evaluate( NaturalNumberGenome* );*/
-
-	protected:
-		void Generate(void);
-	};
+protected:
+    void Generate(void);
+};
 
 }
 
 #endif
+
