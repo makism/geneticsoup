@@ -57,7 +57,7 @@ namespace GeneticSoup
         virtual T& operator [](unsigned int);
 #pragma endregion
         
-    protected:
+    public:
         typedef T mType;
 
     protected:
