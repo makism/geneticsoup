@@ -22,7 +22,8 @@ int main(int argc, char** argv)
     
     std::cout << std::endl;
     
-    Crossover<BinaryNumberGenome>::TwoPointExchange(father, mother, child1, child2);
+    Crossover<BinaryNumberGenome> cs;
+    cs.ShuffleExchange(father, mother, child1, child2);
     
     std::cout << std::endl;
     std::cout << child1 << std::endl;
