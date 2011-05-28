@@ -10,7 +10,7 @@ namespace GeneticSoup {
     public:
         template<class U>
         friend class Mutation;
-	
+        
 	public:
 		/*! */
 		Genome(void);
@@ -18,16 +18,24 @@ namespace GeneticSoup {
 		Genome(unsigned int);
 		/*! */
         Genome(const Genome&);
+        /*! */
 		virtual ~Genome(void);
 		
+        /*! */
 		void Create(void);
+        /*! */
 		void Evaluate(void);
+        /*! */
 		float Fitness(void);
+        /*! */
 		unsigned long int Id(void);
+        /*! */
 		bool IsMutated(void);
+        /*! */
 		bool HasSuccessCrossover(void);
+        /*! */
 		bool IsCreated(void);
-		
+        
 		Population< Genome<T> >* Parent(void) const;
 
 		virtual const std::string ToString(bool = false);
@@ -37,18 +45,27 @@ namespace GeneticSoup {
 		virtual bool operator ==(const Genome<T> &) const;
 		virtual T & operator [](unsigned int);
 		virtual T const & operator [](unsigned int) const;
+        
+    public:
+        Mutation<T> Mutate;
 	
 	protected:
 		void Init(void);
 		virtual void Generate(void) = 0;
 		virtual float EvaluateCallback(void) = 0;
-
+    
 	protected:
+        /*! */
 		float mFitness;
+        /*! */
 		unsigned int mSize;
+        /*! */
 		unsigned long int mId;
+        /*! */
 		bool mIsMutated;
+        /*! */
 		bool mSucessCrossover;
+        /*! */
 		bool mIsCreated;
 	
 	private:
