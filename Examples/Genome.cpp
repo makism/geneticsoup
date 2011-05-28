@@ -11,19 +11,17 @@ int main(int argc, char** argv)
 
     srand((unsigned int) seconds);
     rand();
-
-	// Create a new StrGenome and Evaluate it.
+    
     StrGenome strg;
     strg.Create();
     strg.Evaluate();
-
+    
     std::cout << strg.ToString(true) << std::endl;
-
-	// Copy-ctor.
+    
+    // Copy-ctor.
     StrGenome strg2(strg);
-	
+    
     std::cout << strg2.ToString(true) << std::endl;
 
-	
     return 0;
 }
