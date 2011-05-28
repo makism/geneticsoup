@@ -9,13 +9,22 @@ namespace GeneticSoup {
 
     public:
         Crossover(void);
+        Crossover(const float&);
         
-        static void SinglePointExchange(T&, T&, T& = Genome<T>(), T& = Genome<T>());
-        static void TwoPointExchange(T&, T&, T& = Genome<T>(), T& = Genome<T>());
-        static void UniformExchange(T&, T&, T& = Genome<T>(), T& = Genome<T>());
-        static void ThreeParentExchange(T&, T&, T&, T& = Genome<T>());
-        static void ShuffleExchange(T&, T&, T& = Genome<T>(), T& = Genome<T>());
-//      static void HalfUniformExchange( T, T, T, T );
+        void SinglePointExchange(T&, T&, T& = Genome<T>(), T& = Genome<T>());
+        void TwoPointExchange(T&, T&, T& = Genome<T>(), T& = Genome<T>());
+        void UniformExchange(T&, T&, T& = Genome<T>(), T& = Genome<T>());
+        void ThreeParentExchange(T&, T&, T&, T& = Genome<T>());
+        void ShuffleExchange(T&, T&, T& = Genome<T>(), T& = Genome<T>());
+        
+        void SetCrossoverRate(const float& rate);
+        void CrossoverRate(void) const;
+        
+    private:
+        typedef T mType;
+        
+    private:
+        float mCrossoverRate;
         
     };
 }

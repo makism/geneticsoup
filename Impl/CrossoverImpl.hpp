@@ -1,12 +1,30 @@
 
 
 namespace GeneticSoup {
-
+    
     template<class T>
     Crossover<T>::Crossover(void)
+        : mCrossoverRate(0.75f)
     {
     }
     
+    template<class T>
+    Crossover<T>::Crossover(const float& rate)
+        : mCrossoverRate(rate)
+    {
+    }
+    
+    template<class T>
+    void Crossover<T>::SetCrossoverRate(const float& rate)
+    {
+        
+    }
+    
+    template<class T>
+    void Crossover<T>::CrossoverRate(void) const
+    {
+        return mCrossoverRate;
+    }
     
     template<class T>
     void Crossover<T>::SinglePointExchange(T& g1, T& g2, T& off1, T& off2)
@@ -72,5 +90,23 @@ namespace GeneticSoup {
             else
                 off1.Assign(i, g3.At(i));
         }
+    }
+    
+    template<class T>
+    void Crossover<T>::ShuffleExchange(T& g1, T& g2, T& off1, T& off2)
+    {
+        std::vector<typename T::mType> genome1(g1.Ref());
+        std::vector<typename T::mType> genome2(g2.Ref());
+        
+        std::random_shuffle(genome1.begin(), genome1.end());
+        std::random_shuffle(genome2.begin(), genome2.end());
+        
+        g1.Ref().swap(genome1);
+        g2.Ref().swap(genome2);
+        
+        SinglePointExchange(g1, g2, off1, off2);
+        
+        g1.Ref().swap(genome1);
+        g2.Ref().swap(genome2);
     }
 }
