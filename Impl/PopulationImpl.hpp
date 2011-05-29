@@ -75,6 +75,12 @@ unsigned long int Population<T>::Id(void) const
 }
 
 template<class T>
+float Population<T>::TotalFitness(void) const
+{
+    return mTotalFitness;
+}
+
+template<class T>
 float Population<T>::AverageFitness(void) const
 {
     return mAvgFitness;

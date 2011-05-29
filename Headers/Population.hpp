@@ -29,6 +29,8 @@ public:
     long unsigned int Id(void) const;
     
     /*! */
+    float TotalFitness(void) const;
+    /*! */
     float AverageFitness(void) const;
     /*! */
     float WorstFitness(void) const;
