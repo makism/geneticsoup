@@ -8,7 +8,7 @@ template<class T>
 class Selection {
 
 public:
-    static void RouletteWheel(Population<T>&);
+    static T RouletteWheel(Population<T>&);
 //         static void Elitism(void);
 //         static void Tournament(void);
 //         static void BinaryTournament(void);
