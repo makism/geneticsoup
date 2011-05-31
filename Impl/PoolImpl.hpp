@@ -221,6 +221,12 @@ std::vector<T> & Pool<T>::Ref(void)
 }
 
 template<class T>
+std::vector<T> * Pool<T>::Ptr(void)
+{
+    return mPool;   
+}
+
+template<class T>
 bool Pool<T>::Merge(const Pool& other)
 {
     return false;
