@@ -17,7 +17,7 @@ public:
     /*! */
     Genome(unsigned int);
     /*! */
-    Genome(const Genome&);
+    Genome(const Genome<T>&);
     /*! */
     virtual ~Genome(void);
 
@@ -25,6 +25,8 @@ public:
     void Create(void);
     /*! */
     void Evaluate(void);
+    /*! */
+    virtual void Mutate(void);
     /*! */
     float Fitness(void) const;
     /*! */
@@ -45,9 +47,6 @@ public:
     virtual bool operator ==(const Genome<T> &) const;
     virtual T & operator [](unsigned int);
     virtual T const & operator [](unsigned int) const;
-
-public:
-    Mutation<T> Mutate;
 
 protected:
     void Init(void);

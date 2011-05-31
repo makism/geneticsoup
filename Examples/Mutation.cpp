@@ -14,13 +14,17 @@ int main(int argc, char** argv)
     srand((unsigned int) seconds);
     rand();
     
-//     MyBinaryGenome bg;
-//     bg.Create();
-//     
-//     bg.Mutate();
-//     
-//     std::cout << bg << std::endl;
-//  
+    BinaryNumberGenome bg;
+    
+    std::cout << "Original: " << bg << std::endl;
+ 
+//     Mutation<BinaryNumberGenome>::_Exchange2(bg);
+    bg.Mutate();
+    bg.Evaluate();
+    
+    if (bg.IsMutated())
+        std::cout << " Mutated: " << bg << std::endl;
+    
     delete Helpers::Random::Instance();
     return 0;
 }

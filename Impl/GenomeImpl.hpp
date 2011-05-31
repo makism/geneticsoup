@@ -19,7 +19,7 @@ Genome<T>::Genome(void)
  *
  */
 template<class T>
-Genome<T>::Genome(const Genome& g)
+Genome<T>::Genome(const Genome<T>& g)
         : Pool<T>(g.Size()),
         mFitness(g.mFitness),
         mId(g.mId),
@@ -27,6 +27,8 @@ Genome<T>::Genome(const Genome& g)
         mIsCreated(g.mIsCreated),
         mSucessCrossover(g.mSucessCrossover)
 {
+    this->mParent = 0;
+    
     for (int i = 0; i < g.Size(); i++)
         (*(Pool<T>::mPool))[i] = g[i];
 }
@@ -104,6 +106,15 @@ float Genome<T>::EvaluateCallback(void)
 
 }
 
+/*
+ * 
+ */
+template<class T>
+void Genome<T>::Mutate(void)
+{
+    Mutation< Genome<T> >::_Exchange2(*this);
+}
+
 /* Returns the crossover status of the genome.
  *
  */
@@ -152,7 +163,10 @@ bool Genome<T>::IsCreated(void) const
 template<class T>
 Population< Genome<T> >* Genome<T>::Parent(void) const
 {
-    return static_cast< Population< Genome<T> >* >(mParent);
+    if (mParent!=0)
+        return static_cast< Population< Genome<T> >* >(mParent);
+    else
+        return 0;
 }
 
 /*
