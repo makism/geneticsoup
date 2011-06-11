@@ -10,6 +10,9 @@ class Genome: public Pool<T>, public Parent {
 public:
     template<class U>
     friend class Mutation;
+    
+    template<class R>
+    friend R CloneGenome(const R&);
 
 public:
     /*! */

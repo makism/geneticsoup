@@ -2,6 +2,18 @@
 
 namespace GeneticSoup
 {
+    
+template<class R>
+R CloneGenome(const R& src) {
+    typedef typename Helpers::remove_pointer<R>::type type;
+    R temp = new type();
+    
+//     std::cout << src << std::endl;
+//     std::cout << clone << std::endl;
+//     std::cout << std::endl;
+    
+    return temp;
+}
 
 template<class T>
 unsigned long int Genome<T>::_idCounter = 0;
@@ -203,7 +215,7 @@ T const& Genome<T>::operator [](unsigned int i) const
 template<class T>
 bool Genome<T>::operator >(const Genome<T> & other) const
 {
-    return (mFitness > other.mFitness);
+    return mFitness > other.mFitness;
 }
 
 /*
@@ -212,7 +224,7 @@ bool Genome<T>::operator >(const Genome<T> & other) const
 template<class T>
 bool Genome<T>::operator <(const Genome<T> & other) const
 {
-    return (mFitness < other.mFitness);
+    return mFitness < other.mFitness;
 }
 
 /*
