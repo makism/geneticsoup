@@ -8,6 +8,13 @@ R CloneGenome(const R& src) {
     typedef typename Helpers::remove_pointer<R>::type type;
     R temp = new type();
     
+    for (int i=0; i<src->Size(); i++) {
+        temp->Push(src->At(i));
+    }
+    
+    temp->mFitness = src->mFitness;
+    temp->mParent = NULL;
+    
 //     std::cout << src << std::endl;
 //     std::cout << clone << std::endl;
 //     std::cout << std::endl;
