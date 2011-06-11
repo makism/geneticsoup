@@ -8,6 +8,9 @@ namespace GeneticSoup
 template<typename T>
 class Population: public Pool<T>
 {
+    
+public:
+    enum SortOrder { SortAscending, SortDescending, SortReset };
 
 public:
     /*! */
@@ -27,6 +30,9 @@ public:
     unsigned int Migrations(void) const;
     /*! */
     long unsigned int Id(void) const;
+    
+    /*! */
+    void Sort(const SortOrder so = SortAscending);
     
     /*! */
     float TotalFitness(void) const;
@@ -81,6 +87,27 @@ private:
     T mWorstGenome;
 };
 
+
+template<class T>
+struct compareGenomesLt {
+    bool operator() (const T& g1, const T& g2) {
+        return *g1 < *g2;
+    }
+};
+
+template<class T>
+struct compareGenomesGt {
+    bool operator() (const T& g1, const T& g2) {
+        return *g1 > *g2;
+    }
+};
+
+template<class T>
+struct compareGenomesReset {
+    bool operator() (const T& g1, const T& g2) {
+        return g1->Id() < g2->Id();
+    }
+};
 
 template<class T>
 std::ostream& operator <<(std::ostream& stream, Population<T> & population)

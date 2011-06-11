@@ -75,6 +75,23 @@ unsigned long int Population<T>::Id(void) const
 }
 
 template<class T>
+void Population<T>::Sort(const SortOrder so)
+{
+    switch (so) {
+        case SortAscending:
+            std::sort(this->mPool->begin(), this->mPool->end(), compareGenomesLt<T>());
+        break;
+        case SortDescending:
+            std::sort(this->mPool->begin(), this->mPool->end(), compareGenomesGt<T>());
+        break;
+        case SortReset:
+        default:
+            std::sort(this->mPool->begin(), this->mPool->end(), compareGenomesReset<T>());
+        break;
+    }
+}
+
+template<class T>
 float Population<T>::TotalFitness(void) const
 {
     return mTotalFitness;
