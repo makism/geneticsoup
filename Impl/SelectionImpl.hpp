@@ -28,10 +28,13 @@ T Selection<T>::RouletteWheel(Population<T>& pop) {
 template<class T>
 void Selection<T>::Elitism(Population<T>& pop, Population<T>& newPop, unsigned int copies)
 {
-    std::sort(pop.Ref().begin(), pop.Ref().end());
+    pop.Sort(Population<T>::SortDescending);
     
-//     for (unsigned int i=0; i<copies; i++)
-//         newPop.Push(t);
+    for (int i=0; i<copies; i++) {
+        T temp = CloneGenome<T>(pop[i]);
+        
+        newPop.Push(temp);
+    }
 }
 
 }
