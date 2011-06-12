@@ -211,6 +211,15 @@ bool Pool<T>::IsEmpty(void) const
     return mIsEmpty;
 }
 
+/*
+ * 
+ */
+template<class T>
+unsigned int Pool<T>::Count(void) const
+{
+    return mPushPosition;
+}
+
 /* Returns a reference to the internal pool (std::vector).
  *
  */

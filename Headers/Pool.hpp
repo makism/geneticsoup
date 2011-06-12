@@ -37,7 +37,7 @@ public:
     bool HasFixedSize(void) const;
     void Clear(void);
     bool IsEmpty(void) const;
-    //unsigned int Count(void) const;
+    unsigned int Count(void) const;
 #pragma endregion
 
 #pragma region
