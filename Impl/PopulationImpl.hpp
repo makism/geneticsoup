@@ -92,6 +92,19 @@ void Population<T>::Sort(const SortOrder so)
 }
 
 template<class T>
+void Population<T>::AutoPopulate(void)
+{
+    for (unsigned int i=0; i<this->mSize; i++) {
+        typedef typename Helpers::remove_pointer<T>::type type;
+        T temp = new type();
+        temp->Create();
+        temp->Evaluate();
+        
+        this->Push(temp);
+    }
+}
+
+template<class T>
 float Population<T>::TotalFitness(void) const
 {
     return mTotalFitness;

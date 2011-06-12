@@ -33,6 +33,8 @@ public:
     
     /*! */
     void Sort(const SortOrder so = SortAscending);
+    /*! */
+    void AutoPopulate(void);
     
     /*! */
     float TotalFitness(void) const;
