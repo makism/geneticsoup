@@ -26,13 +26,7 @@ int main(int argc, char** argv)
     Population<StrGenome*> population(20, "initial");
     Population<StrGenome*> nextPopulation(20, "2nd gen");
 
-    for (unsigned int i=0; i<population.Size(); i++) {
-        StrGenome* g =  new StrGenome();
-        g->Create();
-        g->Evaluate();
-
-        population.Push(g);
-    }
+    population.AutoPopulate();
 
     Selection<StrGenome*>::Elitism(population, nextPopulation, 2);
     StrGenome* selected = Selection<StrGenome*>::RouletteWheel(population);
@@ -46,13 +40,7 @@ int main(int argc, char** argv)
               << std::endl;
     
     std::cout << std::endl << "Next Population" << std::endl;
-    for (unsigned int i=0; i<nextPopulation.Size() - 2; i++) {
-        StrGenome* g = new StrGenome();
-        g->Create();
-        g->Evaluate();
-        
-        nextPopulation.Push(g);
-    }
+    nextPopulation.AutoPopulate();
     
     while (nextPopulation.Next())
         std::cout << nextPopulation.Current() << std::endl;
