@@ -24,6 +24,8 @@
 #include "Headers/Crossover.hpp"
 #include "Headers/Selection.hpp"
 #include "Headers/Island.hpp"
+#include "Headers/Topology.hpp"
+#include "Headers/ConnectedIslands.hpp"
 
 #include "Impl/PoolImpl.hpp"
 #include "Impl/PopulationImpl.hpp"
@@ -34,6 +36,7 @@
 #include "Impl/CrossoverImpl.hpp"
 #include "Impl/SelectionImpl.hpp"
 #include "Impl/IslandImpl.hpp"
-
+#include "Impl/TopologyImpl.hpp"
+#include "Impl/ConnectedIslandsImpl.hpp"
 
 #endif

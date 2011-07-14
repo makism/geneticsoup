@@ -6,7 +6,13 @@ namespace GeneticSoup {
 
 template<class T>
 class Topology {
-
+ 
+public:
+    Topology(std::vector< Island<T> *> islands);
+    virtual ~Topology(void);
+    
+private:
+    std::vector< Island<T> *> islands;
 };
 
 template<class T>
