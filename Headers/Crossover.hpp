@@ -11,11 +11,11 @@ public:
     Crossover(void);
     Crossover(const float&);
 
-    void SinglePointExchange(T&, T&, T& = Genome<T>(), T& = Genome<T>());
-    void TwoPointExchange(T&, T&, T& = Genome<T>(), T& = Genome<T>());
-    void UniformExchange(T&, T&, T& = Genome<T>(), T& = Genome<T>());
-    void ThreeParentExchange(T&, T&, T&, T& = Genome<T>());
-    void ShuffleExchange(T&, T&, T& = Genome<T>(), T& = Genome<T>());
+    void SinglePointExchange(T, T, T = new Genome<T>(), T = new Genome<T>());
+    void TwoPointExchange(T, T, T = new Genome<T>(), T = new Genome<T>());
+    void UniformExchange(T, T, T = new Genome<T>(), T = new Genome<T>());
+    void ThreeParentExchange(T, T, T, T = new Genome<T>());
+    void ShuffleExchange(T, T, T = new Genome<T>(), T = new Genome<T>());
 
     void SetCrossoverRate(const float& rate);
     void CrossoverRate(void) const;
