@@ -72,10 +72,10 @@ namespace GeneticSoup
         }
     }
     
-//     template<class T>
-//     void Mutation<T>::_Invert(T& genome)
-//     {
-//         genome.mIsMutated = true;
-//         genome[0] = !genome[0];
-//     }
+    template<class T>
+    void Mutation<T>::_Invert(T& genome)
+    {
+        genome.mIsMutated = true;
+        genome[0] = !genome[0];
+    }
 }

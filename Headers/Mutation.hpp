@@ -26,9 +26,9 @@ public:
 //     void operator()(void) const;
 
     static void _Exchange2(T&);
+    static void _Invert(T&);
     
 // protected:
-//     void _Invert(T&);
 //     void _Insert(T&);
 //     void _Shift(T&);
 // 
