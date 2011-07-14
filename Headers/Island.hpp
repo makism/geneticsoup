@@ -8,37 +8,56 @@ namespace GeneticSoup
 template<class T>
 class Island
 {
-
+    
 public:
-    Island(void);
-    Island(unsigned int, unsigned int, unsigned int);
+    /*! */
+    Island(unsigned int Epochs, unsigned int PopulationSize, unsigned int GenomeSize);
+    /*! */
     virtual ~Island(void);
 
+    /*! */
     virtual void Initialize(void) = 0;
+    /*! */
     virtual void AdvanceEpoch(void) = 0;
-    unsigned int Epochs(void);
-    unsigned int PopulationSize(void);
+    /*! */
+    void AutoAdvanceEpoch(void);
+    /*! */
+    void SetElitism(unsigned int);
+    
+    
+    /*! */
+    unsigned int Epochs(void) const;
+    /*! */
+    unsigned int Epoch(void) const;
+    /*! */
+    unsigned int PopulationSize(void) const;
+    /*! */
     Population<T>* CurrentPopulation(void);
+    /*! */
     Population<T>* PreviousPopulation(void);
 
-    void SetElitism(unsigned int);
-
-    /*
-      Mutation<T>::Type MutationType(void);
-      void MutationType(Mutation<T>::Type);*/
-
 protected:
+    /*! */
     Population<T> *mCurrentPopulation;
+    /*! */
     Population<T> *mPreviousPopulation;
-    Selection<T> *mSelection;
-//         Mutation *mMutation;
-    Crossover<T> *mCrossover;
+    /*! */
+    Selection<T> mSelection;
+    /*! */
+    Crossover<T> mCrossover;
+    /*! */
     unsigned int mEpochs;
+    /*! */
     unsigned int mCurrentEpoch;
+    /*! */
     unsigned int mPopulationSize;
+    /*! */
     unsigned int mGenomeSize;
-
+    
+    typedef typename Helpers::remove_pointer<T>::type TT;
+    
 private:
+    /*! */
     unsigned int mEliteCopies;
 };
 
