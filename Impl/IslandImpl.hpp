@@ -44,6 +44,8 @@ void Island<T>::AdvanceEpoch(void)
 {
     if (mCurrentEpoch < mEpochs) {
         mCurrentEpoch++;
+        
+        delete mPreviousPopulation;
 
         mPreviousPopulation = mCurrentPopulation;
         mCurrentPopulation = new Population<T>(mPopulationSize);
