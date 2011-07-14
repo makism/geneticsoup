@@ -16,7 +16,7 @@ class StrGenome: public Genome<std::string>
 
 public:
     StrGenome(void)
-        : Genome<std::string>(5) {
+            : Genome<std::string>(5) {
 
     }
 
@@ -26,34 +26,34 @@ public:
 
             for (unsigned int x = 0; x < mSize; x++)
                 oss << (char)((rand() % 25) + 65);
-            
+
             this->Push(oss.str());
         }
     }
 
     float EvaluateCallback(void) {
         int hits = std::for_each(this->Ref().begin(), this->Ref().end(), parseString());
-		
+
         return static_cast<float>(static_cast<float>(hits) / (mSize * mSize));
     }
-    
+
 private:
     struct parseString {
-		int hits;
-		
-		void operator() (std::string &str) {
-			hits += std::count(str.begin(), str.end(), 'A');
+        int hits;
+
+        void operator() (std::string &str) {
+            hits += std::count(str.begin(), str.end(), 'A');
             hits += std::count(str.begin(), str.end(), 'E');
             hits += std::count(str.begin(), str.end(), 'I');
             hits += std::count(str.begin(), str.end(), 'O');
             hits += std::count(str.begin(), str.end(), 'U');
             hits += std::count(str.begin(), str.end(), 'Y');
-		}
-		
-		operator int() {
-			return hits;
-		}
-	};
+        }
+
+        operator int() {
+            return hits;
+        }
+    };
 };
 
 #endif
