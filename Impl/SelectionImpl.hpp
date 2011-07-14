@@ -3,7 +3,8 @@
 namespace GeneticSoup {
 
 template<class T>
-T Selection<T>::RouletteWheel(Population<T>& pop) {
+T Selection<T>::RouletteWheel(Population<T>& pop)
+{
     float slice = pop.TotalFitness() * Helpers::Random::Instance()->Generate();
     float total = 0.0f;
 
@@ -21,8 +22,14 @@ T Selection<T>::RouletteWheel(Population<T>& pop) {
         }
     }
     pop.Reset();
-
+    
     return selectedGenome;
+}
+
+template<class T>
+T Selection<T>::RouletteWheel(Population<T>* pop)
+{
+    return Selection<T>::RouletteWheel(*pop);
 }
 
 template<class T>
@@ -35,6 +42,12 @@ void Selection<T>::Elitism(Population<T>& pop, Population<T>& newPop, unsigned i
         
         newPop.Push(temp);
     }
+}
+
+template<class T>
+void Selection<T>::Elitism(Population<T>* pop, Population<T>* newPop, unsigned int copies)
+{
+    Selection<T>::Elitism(*pop, *newPop, copies);
 }
 
 }
