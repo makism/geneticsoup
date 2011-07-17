@@ -18,7 +18,8 @@ public:
     static T Random(Population<T>* pop);
     static T BinaryTournament(Population<T>& pop);
     static T BinaryTournament(Population<T>* pop);
-//         static void PropBinaryTournament(void);
+    static T PropBinaryTournament(Population<T>& pop, float ub = 1.0f, float lb = 0.5f);
+    static T PropBinaryTournament(Population<T>* pop, float ub = 1.0f, float lb = 0.5f);
 };
 
 }

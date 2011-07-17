@@ -128,4 +128,22 @@ T Selection<T>::BinaryTournament(Population<T>* pop)
     return Selection<T>::BinaryTournament(*pop);
 }
 
+template<class T>
+T Selection<T>::PropBinaryTournament(Population<T>& pop, float ub, float lb)
+{
+    T genome = Selection<T>::BinaryTournament(pop);
+    float score = Helpers::Random::Instance()->Generate();
+    
+    if (score > lb && score < ub)
+        return genome;
+    else
+        return 0;
+}
+
+template<class T>
+T Selection<T>::PropBinaryTournament(Population<T>* pop, float ub, float lb)
+{
+    return Selection<T>::BinaryTournament(*pop, ub, lb);
+}
+
 }
