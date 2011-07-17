@@ -13,17 +13,25 @@ public:
     /*! */
     Island(unsigned int Epochs, unsigned int PopulationSize, unsigned int GenomeSize);
     /*! */
+    Island(unsigned int Epochs, unsigned int PopulationSize, unsigned int GenomeSize, float MutationRate, float CrossoverRate);
+    /*! */
     virtual ~Island(void);
-
+    
+    /*! */
+    void SetMutationRate(float rate);
+    /*! */
+    void SetCrossoverRate(float rate);
+    /*! */
+    void SetEliteCopies(unsigned int copies);
+    
     /*! */
     virtual void Initialize(void) = 0;
     /*! */
     virtual void AdvanceEpoch(void) = 0;
     /*! */
-    void AutoAdvanceEpoch(void);
+    virtual void Go(void);
     /*! */
-    void SetElitism(unsigned int);
-    
+    void AutoAdvanceEpoch(void);
     
     /*! */
     unsigned int Epochs(void) const;
@@ -35,6 +43,11 @@ public:
     Population<T>* CurrentPopulation(void);
     /*! */
     Population<T>* PreviousPopulation(void);
+    
+    /*! */
+    static bool Store(const std::string& filename);
+    /*! */
+    static Island<T> Load(const std::string& filename);
 
 protected:
     /*! */
@@ -53,12 +66,12 @@ protected:
     unsigned int mPopulationSize;
     /*! */
     unsigned int mGenomeSize;
-    
-    typedef typename Helpers::remove_pointer<T>::type TT;
-    
-private:
     /*! */
     unsigned int mEliteCopies;
+    
+    typedef T Type;
+    
+    typedef typename Helpers::remove_pointer<T>::type TType;
 };
 
 }
