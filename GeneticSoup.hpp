@@ -14,6 +14,7 @@
 
 #include "GeneticSoup_Version.hpp"
 #include "GeneticSoup_Helpers.hpp"
+#include "Headers/Function.hpp"
 #include "Headers/Parent.hpp"
 #include "Headers/Pool.hpp"
 #include "Headers/Population.hpp"
