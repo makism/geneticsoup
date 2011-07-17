@@ -1,4 +1,3 @@
-#include <vector>
 
 
 namespace GeneticSoup
@@ -108,6 +107,8 @@ bool Pool<T>::Push(const T& value)
 template<class T>
 bool Pool<T>::Next(void)
 {
+    int size = (mPushPosition) ? Count() : Size();
+    
     if (mPosition + 1 < mPool->size()) {
         mPosition++;
 
