@@ -10,7 +10,7 @@ class Genome: public Pool<T>, public Parent {
 public:
     template<class U>
     friend class Mutation;
-    
+
     template<class R>
     friend R CloneGenome(const R&);
 
@@ -18,9 +18,9 @@ public:
     /*! */
     Genome(void);
     /*! */
-    Genome(unsigned int);
+    Genome(unsigned int size, Function::FunctionType function = Function::Fitness);
     /*! */
-    Genome(const Genome<T>&);
+    Genome(const Genome<T>& other);
     /*! */
     virtual ~Genome(void);
 
@@ -40,7 +40,9 @@ public:
     bool HasSuccessCrossover(void) const;
     /*! */
     bool IsCreated(void) const;
-
+    /*! */
+    Function::FunctionType Function(void) const;
+    
     Population< Genome<T> >* Parent(void) const;
 
     virtual const std::string ToString(bool = false);
@@ -69,6 +71,8 @@ protected:
     bool mSucessCrossover;
     /*! */
     bool mIsCreated;
+    /*! */
+    Function::FunctionType mFunction;
 
 private:
     /*! */

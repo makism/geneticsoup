@@ -2,23 +2,19 @@
 
 namespace GeneticSoup
 {
-    
+
 template<class R>
 R CloneGenome(const R& src) {
     typedef typename Helpers::remove_pointer<R>::type type;
     R temp = new type();
-    
-    for (int i=0; i<src->Size(); i++) {
+
+    for (int i=0; i<src->Size(); i++)
         temp->Push(src->At(i));
-    }
-    
+
     temp->mFitness = src->mFitness;
-    temp->mParent = NULL;
-    
-//     std::cout << src << std::endl;
-//     std::cout << clone << std::endl;
-//     std::cout << std::endl;
-    
+    temp->mFunction = src->mFunction;
+    temp->mIsCreated = true;
+
     return temp;
 }
 
@@ -44,10 +40,11 @@ Genome<T>::Genome(const Genome<T>& g)
         mId(g.mId),
         mIsMutated(g.mIsMutated),
         mIsCreated(g.mIsCreated),
-        mSucessCrossover(g.mSucessCrossover)
+        mSucessCrossover(g.mSucessCrossover),
+        mFunction(g.mFunction)
 {
     this->mParent = 0;
-    
+
     for (int i = 0; i < g.Size(); i++)
         (*(Pool<T>::mPool))[i] = g[i];
 }
@@ -57,8 +54,9 @@ Genome<T>::Genome(const Genome<T>& g)
  * For the time being it only accepts the total number of genes.
  */
 template<class T>
-Genome<T>::Genome(unsigned int size)
-        : Pool<T>(size)
+Genome<T>::Genome(unsigned int size, Function::FunctionType function)
+        : Pool<T>(size),
+        mFunction(function)
 {
     Init();
 
@@ -91,7 +89,11 @@ void Genome<T>::Init(void)
 {
     mFitness = 0.0f;
     mSize = 0;
+#ifdef GENETICSOUP_NO_ID_COUNTER
+    mId = 0;
+#else
     mId = _idCounter++;
+#endif
     mIsMutated = false;
     mSucessCrossover = false;
     mIsCreated = false;
@@ -126,7 +128,7 @@ float Genome<T>::EvaluateCallback(void)
 }
 
 /*
- * 
+ *
  */
 template<class T>
 void Genome<T>::Mutate(void)
@@ -177,6 +179,15 @@ template<class T>
 bool Genome<T>::IsCreated(void) const
 {
     return mIsCreated;
+}
+
+/*
+ * 
+ */
+template<class T>
+Function::FunctionType Genome<T>::Function(void) const
+{
+    return mFunction;
 }
 
 template<class T>
