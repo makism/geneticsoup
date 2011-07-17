@@ -17,7 +17,7 @@ Crossover<T>::Crossover(const float& rate)
 template<class T>
 void Crossover<T>::SetCrossoverRate(const float& rate)
 {
-
+    mCrossoverRate = rate;
 }
 
 template<class T>
@@ -27,8 +27,20 @@ void Crossover<T>::CrossoverRate(void) const
 }
 
 template<class T>
+bool Crossover<T>::SuccessCheck(void)
+{
+    return (Helpers::Random::Instance()->Generate() > mCrossoverRate);
+}
+
+template<class T>
 void Crossover<T>::SinglePointExchange(T g1, T g2, T off1, T off2)
 {
+    if (!SuccessCheck())
+        return;
+    
+    if (g1 == g2)
+        return;
+    
     int start = Helpers::Random::Instance()->Generate(0, g1->Size());
 
     std::copy(g1->Ref().begin(), g1->Ref().begin() + start, off1->Ref().begin());
@@ -41,6 +53,9 @@ void Crossover<T>::SinglePointExchange(T g1, T g2, T off1, T off2)
 template<class T>
 void Crossover<T>::TwoPointExchange(T g1, T g2, T off1, T off2)
 {
+    if (!SuccessCheck())
+        return;
+    
     int pos1 = 0;
     int pos2 = 0;
 
@@ -70,6 +85,9 @@ void Crossover<T>::TwoPointExchange(T g1, T g2, T off1, T off2)
 template<class T>
 void Crossover<T>::UniformExchange(T g1, T g2, T off1, T off2)
 {
+    if (!SuccessCheck())
+        return;
+    
     for (unsigned int i=0; i<g1->Size(); i++ ) {
         if (Helpers::Random::Instance()->Generate() > 0.5f) {
             off1->Assign(i, g1->At(i));
@@ -84,6 +102,9 @@ void Crossover<T>::UniformExchange(T g1, T g2, T off1, T off2)
 template<class T>
 void Crossover<T>::ThreeParentExchange(T g1, T g2, T g3, T off1)
 {
+    if (!SuccessCheck())
+        return;
+    
     for (unsigned int i=0; i<g1->Size(); i++) {
         if (g1->At(i) == g2->At(i))
             off1->Assign(i, g1->At(i));
@@ -95,6 +116,9 @@ void Crossover<T>::ThreeParentExchange(T g1, T g2, T g3, T off1)
 template<class T>
 void Crossover<T>::ShuffleExchange(T g1, T g2, T off1, T off2)
 {
+    if (!SuccessCheck())
+        return;
+    
     std::vector<typename T::mType> genome1(g1->Ref());
     std::vector<typename T::mType> genome2(g2->Ref());
 

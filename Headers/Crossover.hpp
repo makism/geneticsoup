@@ -21,6 +21,9 @@ public:
     void CrossoverRate(void) const;
 
 private:
+    bool SuccessCheck(void);
+    
+private:
     typedef T mType;
 
 private:
