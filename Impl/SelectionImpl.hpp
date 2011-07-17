@@ -98,4 +98,34 @@ T Selection<T>::Random(Population<T>* pop)
     return Selection<T>::Random(*pop);
 }
 
+template<class T>
+T Selection<T>::BinaryTournament(Population<T>& pop)
+{
+    T g1 = Selection<T>::Random(pop);
+    T g2 = g1;
+    
+    while (g1 == g2)
+        g2 = Selection<T>::Random(pop);
+    
+    if (g1->Function() == Function::Fitness) {
+        if (g1->Fitness() > g2->Fitness())
+            return g1;
+        else
+            return g2;
+    } else {
+        if (g1->Fitness() < g2->Fitness())
+            return g1;
+        else
+            return g2;
+    }
+    
+    return 0;
+}
+
+template<class T>
+T Selection<T>::BinaryTournament(Population<T>* pop)
+{
+    return Selection<T>::BinaryTournament(*pop);
+}
+
 }

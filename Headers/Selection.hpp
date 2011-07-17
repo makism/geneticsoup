@@ -16,7 +16,8 @@ public:
     static T Tournament(Population<T>* pop, unsigned int contestants, bool allowDups = true);
     static T Random(Population<T>& pop);
     static T Random(Population<T>* pop);
-//         static void BinaryTournament(void);
+    static T BinaryTournament(Population<T>& pop);
+    static T BinaryTournament(Population<T>* pop);
 //         static void PropBinaryTournament(void);
 };
 
