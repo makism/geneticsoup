@@ -7,13 +7,6 @@
 
 using namespace GeneticSoup;
 
-
-// struct compare {
-//     bool operator() (const StrGenome* g1, const StrGenome* g2) {
-//         return g1->Fitness() < g2->Fitness();
-//     }
-// };
-
 int main(int argc, char** argv)
 {
     time_t seconds;
