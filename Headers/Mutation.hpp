@@ -17,7 +17,7 @@ public:
 //     template<class U> friend void Custom(T&);
 
 public:
-//     Mutation(void);
+    Mutation(void);
 //     ~Mutation(void);
     
 //     bool Mutate(void);
@@ -25,6 +25,7 @@ public:
 // 
 //     void operator()(void) const;
 
+    static bool SuccessCheck(void);
     static void _Exchange2(T&);
     static void _Invert(T&);
     
@@ -40,7 +41,7 @@ public:
 //     Genome<T>* mGenome;
 
 public:
-    static const float MUTATION_RATE;
+    static float MUTATION_RATE;
 };
 
 }
