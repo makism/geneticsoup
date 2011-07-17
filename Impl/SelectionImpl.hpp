@@ -33,9 +33,12 @@ T Selection<T>::RouletteWheel(Population<T>* pop)
 }
 
 template<class T>
-void Selection<T>::Elitism(Population<T>& pop, Population<T>& newPop, unsigned int copies)
+void Selection<T>::Elitism(Population<T>& pop, Population<T>& newPop, unsigned int copies, bool descending)
 {
-    pop.Sort(Population<T>::SortDescending);
+    if (descending)
+        pop.Sort(Population<T>::SortDescending);
+    else
+        pop.Sort(Population<T>::SortAscending);
     
     for (int i=0; i<copies; i++) {
         T temp = CloneGenome<T>(pop[i]);
@@ -45,9 +48,41 @@ void Selection<T>::Elitism(Population<T>& pop, Population<T>& newPop, unsigned i
 }
 
 template<class T>
-void Selection<T>::Elitism(Population<T>* pop, Population<T>* newPop, unsigned int copies)
+void Selection<T>::Elitism(Population<T>* pop, Population<T>* newPop, unsigned int copies, bool descending)
 {
-    Selection<T>::Elitism(*pop, *newPop, copies);
+    Selection<T>::Elitism(*pop, *newPop, copies, descending);
+}
+
+template<class T>
+T Selection<T>::Tournament(Population<T>& pop, unsigned int contestants, bool allowDups)
+{
+    T genome = 0;
+    T randomGenome = 0;
+    int index = 0;
+    
+    for (int i=0; i<contestants; i++) {
+        index = Helpers::Random::Instance()->Generate(0, pop->Size() - 1);
+        randomGenome = pop[index];
+
+        if (genome == 0)
+            genome = randomGenome;
+        
+        if (genome->Function() == Function::Fitness) {
+            if (randomGenome->Fitness() > genome->Fitness())
+                genome = randomGenome;
+        } else {
+            if (randomGenome->Fitness() < genome->Fitness())
+                genome = randomGenome;
+        }
+    }
+    
+    return genome;
+}
+
+template<class T>
+T Selection<T>::Tournament(Population<T>* pop, unsigned int contestants, bool allowDups)
+{
+    return Selection<T>::Tournament(*pop, contestants, allowDups);
 }
 
 }
