@@ -1,4 +1,3 @@
-#include <Pool.hpp>
 
 
 namespace GeneticSoup
@@ -17,7 +16,11 @@ Population<T>::Population(void)
 template<class T>
 Population<T>::Population(int size, const std::string& name)
         : Pool<T>(size),
+#ifndef GENETICSOU_NO_ID_COUNTER
         mId(_idCounter++),
+#else
+        mId(0),
+#endif
         mName(name),
         mMutations(0),
         mCrossovers(0),
@@ -39,7 +42,7 @@ Population<T>::~Population(void)
 
     for (it=this->mPool->begin(); it<this->mPool->end(); it++ )
         delete(*it);
-    
+
     mBestGenome = 0;
     mWorstGenome = 0;
 }
@@ -78,15 +81,15 @@ template<class T>
 void Population<T>::Sort(const SortOrder so)
 {
     switch (so) {
-        case SortAscending:
-            std::sort(this->mPool->begin(), this->mPool->end(), compareGenomesLt<T>());
+    case SortAscending:
+        std::sort(this->mPool->begin(), this->mPool->end(), compareGenomesLt<T>());
         break;
-        case SortDescending:
-            std::sort(this->mPool->begin(), this->mPool->end(), compareGenomesGt<T>());
+    case SortDescending:
+        std::sort(this->mPool->begin(), this->mPool->end(), compareGenomesGt<T>());
         break;
-        case SortReset:
-        default:
-            std::sort(this->mPool->begin(), this->mPool->end(), compareGenomesReset<T>());
+    case SortReset:
+    default:
+        std::sort(this->mPool->begin(), this->mPool->end(), compareGenomesReset<T>());
         break;
     }
 }
@@ -99,7 +102,7 @@ void Population<T>::AutoPopulate(void)
         T temp = new type();
         temp->Create();
         temp->Evaluate();
-        
+
         this->Push(temp);
     }
 }
@@ -143,29 +146,53 @@ T Population<T>::WorstGenome(void) const
 template<class T>
 bool Population<T>::Push(const T& value)
 {
-//if (boost::is_pointer<T*>()) {
     Parent* p = static_cast<Parent*>(value);
     p->mParent = this;
 
     mTotalFitness += value->Fitness();
     mAvgFitness = mTotalFitness / this->Size();
     
-    if (value->Fitness() > mBestFitness) {
-        mBestFitness = value->Fitness();
-        mBestGenome = value;
+    if (value->IsMutated())
+        mMutations++;
+
+    // Fitness function
+    if (value->Function() == Function::Fitness) {
+        if (value->Fitness() > mBestFitness) {
+            mBestFitness = value->Fitness();
+            mBestGenome = value;
+
+            if (mWorstGenome==0) {
+                mWorstFitness = mBestFitness;
+                mWorstGenome = mBestGenome;
+            }
+        }
+
+        if (value->Fitness() < mWorstFitness) {
+            mWorstFitness = value->Fitness();
+            mWorstGenome = value;
+        }
         
-        if (mWorstGenome==0) {
-            mWorstFitness = mBestFitness;
-            mWorstGenome = mBestGenome;
+    // Cost function
+    } else {
+        if (mBestGenome == 0 && mWorstGenome == 0) {
+            mBestGenome = value;
+            mBestFitness = value->Fitness();
+            
+            mWorstGenome = value;
+            mWorstFitness = value->Fitness();
+        }
+
+        if (value->Fitness() < mBestFitness) {
+            mBestFitness = value->Fitness();
+            mBestGenome = value;
+        }
+        
+        if (value->Fitness() > mWorstFitness) {
+            mWorstFitness = value->Fitness();
+            mWorstGenome = value;
         }
     }
-    
-    if (value->Fitness() < mWorstFitness) {
-        mWorstFitness = value->Fitness();
-        mWorstGenome = value;
-    }
-    
-//}
+
 
     return Pool<T>::Push(value);
 }
