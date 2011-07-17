@@ -14,6 +14,8 @@ public:
     static void Elitism(Population<T>*, Population<T>*, unsigned int, bool=true);
     static T Tournament(Population<T>& pop, unsigned int contestants, bool allowDups = true);
     static T Tournament(Population<T>* pop, unsigned int contestants, bool allowDups = true);
+    static T Random(Population<T>& pop);
+    static T Random(Population<T>* pop);
 //         static void BinaryTournament(void);
 //         static void PropBinaryTournament(void);
 };

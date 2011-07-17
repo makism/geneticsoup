@@ -61,8 +61,8 @@ T Selection<T>::Tournament(Population<T>& pop, unsigned int contestants, bool al
     int index = 0;
     
     for (int i=0; i<contestants; i++) {
-        index = Helpers::Random::Instance()->Generate(0, pop->Size() - 1);
-        randomGenome = pop[index];
+        index = Helpers::Random::Instance()->Generate(0, pop.Size() - 1);
+        randomGenome = pop.At(index);
 
         if (genome == 0)
             genome = randomGenome;
@@ -83,6 +83,19 @@ template<class T>
 T Selection<T>::Tournament(Population<T>* pop, unsigned int contestants, bool allowDups)
 {
     return Selection<T>::Tournament(*pop, contestants, allowDups);
+}
+
+template<class T>
+T Selection<T>::Random(Population<T>& pop)
+{
+    int index = Helpers::Random::Instance()->Generate(0, pop.Size() - 1);
+    return pop[index];
+}
+
+template<class T>
+T Selection<T>::Random(Population<T>* pop)
+{
+    return Selection<T>::Random(*pop);
 }
 
 }
