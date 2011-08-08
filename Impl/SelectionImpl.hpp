@@ -22,7 +22,7 @@ T Selection<T>::RouletteWheel(Population<T>& pop)
         }
     }
     pop.Reset();
-    
+
     return selectedGenome;
 }
 
@@ -39,10 +39,10 @@ void Selection<T>::Elitism(Population<T>& pop, Population<T>& newPop, unsigned i
         pop.Sort(Population<T>::SortDescending);
     else
         pop.Sort(Population<T>::SortAscending);
-    
-    for (int i=0; i<copies; i++) {
+
+    for (unsigned int i=0; i<copies; i++) {
         T temp = CloneGenome<T>(pop[i]);
-        
+
         newPop.Push(temp);
     }
 }
@@ -59,14 +59,14 @@ T Selection<T>::Tournament(Population<T>& pop, unsigned int contestants, bool al
     T genome = 0;
     T randomGenome = 0;
     int index = 0;
-    
-    for (int i=0; i<contestants; i++) {
+
+    for (unsigned int i=0; i<contestants; i++) {
         index = Helpers::Random::Instance()->Generate(0, pop.Size() - 1);
         randomGenome = pop.At(index);
 
         if (genome == 0)
             genome = randomGenome;
-        
+
         if (genome->Function() == Function::Fitness) {
             if (randomGenome->Fitness() > genome->Fitness())
                 genome = randomGenome;
@@ -75,7 +75,7 @@ T Selection<T>::Tournament(Population<T>& pop, unsigned int contestants, bool al
                 genome = randomGenome;
         }
     }
-    
+
     return genome;
 }
 
@@ -103,10 +103,10 @@ T Selection<T>::BinaryTournament(Population<T>& pop)
 {
     T g1 = Selection<T>::Random(pop);
     T g2 = g1;
-    
+
     while (g1 == g2)
         g2 = Selection<T>::Random(pop);
-    
+
     if (g1->Function() == Function::Fitness) {
         if (g1->Fitness() > g2->Fitness())
             return g1;
@@ -118,7 +118,7 @@ T Selection<T>::BinaryTournament(Population<T>& pop)
         else
             return g2;
     }
-    
+
     return 0;
 }
 
@@ -133,7 +133,7 @@ T Selection<T>::PropBinaryTournament(Population<T>& pop, float ub, float lb)
 {
     T genome = Selection<T>::BinaryTournament(pop);
     float score = Helpers::Random::Instance()->Generate();
-    
+
     if (score > lb && score < ub)
         return genome;
     else

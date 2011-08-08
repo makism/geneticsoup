@@ -21,13 +21,10 @@ public:
     /*! Destroy the Pool and clean the memory. */
     virtual ~Pool(void);
 
-#pragma region Enumeration-like methods
     bool Next(void);
     T& Current(void) const;
     void Reset(void);
-#pragma endregion
 
-#pragma region Vector-modifiers/accessors methods
     T& At(unsigned int offset);
     void Assign(unsigned int index, const T& value);
     bool Push(const T& value);
@@ -38,24 +35,19 @@ public:
     void Clear(void);
     bool IsEmpty(void) const;
     unsigned int Count(void) const;
-#pragma endregion
 
-#pragma region
     /*! Merge a Pool with the current.
      * \param p Source Pool
      * \return Whether the merge has been completed */
     bool Merge(const Pool &p);
-#pragma endregion
 
     std::vector<T> & Ref(void);
     std::vector<T> * Ptr(void);
 
     virtual const std::string ToString(void) const;
 
-#pragma region Operator overload
     virtual T const& operator [](unsigned int) const;
     virtual T& operator [](unsigned int);
-#pragma endregion
 
 public:
     typedef T mType;

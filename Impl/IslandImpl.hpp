@@ -71,7 +71,7 @@ void Island<T>::AdvanceEpoch(void)
 
         mPreviousPopulation = mCurrentPopulation;
         mCurrentPopulation = new Population<T>(mPopulationSize);
-        
+
         // Copy elite genomes.
         if (mEliteCopies && mCurrentEpoch > 0)
             mSelection.Elitism(mPreviousPopulation, mCurrentPopulation, mEliteCopies, false);
@@ -83,10 +83,10 @@ void Island<T>::AutoAdvanceEpoch(void)
 {
     Island<T>::AdvanceEpoch();
 
-    for (int i=mCurrentPopulation->Count(); i<mPopulationSize; i+=2) {
+    for (unsigned int i=mCurrentPopulation->Count(); i<mPopulationSize; i+=2) {
         T parent1 = mSelection.Tournament(mPreviousPopulation, 16);
         T parent2 = mSelection.Tournament(mPreviousPopulation, 16);
-        
+
         T child1 = new TType();
         child1->Generate();
 

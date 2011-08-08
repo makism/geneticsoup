@@ -34,7 +34,6 @@
              
              int Generate(int start, int end) const {
                  boost::uniform_int<> uniInt(start, end);
-                 
                  boost::variate_generator<boost::minstd_rand&, boost::uniform_int<> > uniIntGen(*baseGen, uniInt);
                  
                  return uniIntGen.operator()();

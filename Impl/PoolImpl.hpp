@@ -100,15 +100,17 @@ bool Pool<T>::Push(const T& value)
     return false;
 }
 
-#pragma region Enumerator-like methods
 /* Moves the internal index by one. Returns a bool value indicating the success of the procedure.
  *
  */
 template<class T>
 bool Pool<T>::Next(void)
 {
+    if (mIsEmpty)
+        return false;
+
     int size = (mPushPosition) ? Count() : Size();
-    
+
     if (mPosition + 1 < mPool->size()) {
         mPosition++;
 
@@ -137,7 +139,6 @@ void Pool<T>::Reset(void)
 {
     mPosition = -1;
 }
-#pragma endregion
 
 /* Returns a reference to the first object of the pool.
  *
@@ -213,7 +214,7 @@ bool Pool<T>::IsEmpty(void) const
 }
 
 /*
- * 
+ *
  */
 template<class T>
 unsigned int Pool<T>::Count(void) const
@@ -233,7 +234,7 @@ std::vector<T> & Pool<T>::Ref(void)
 template<class T>
 std::vector<T> * Pool<T>::Ptr(void)
 {
-    return mPool;   
+    return mPool;
 }
 
 template<class T>

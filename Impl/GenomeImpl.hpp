@@ -8,7 +8,7 @@ R CloneGenome(const R& src) {
     typedef typename Helpers::remove_pointer<R>::type type;
     R temp = new type();
 
-    for (int i=0; i<src->Size(); i++)
+    for (unsigned int i=0; i<src->Size(); i++)
         temp->Push(src->At(i));
 
     temp->mFitness = src->mFitness;
@@ -124,7 +124,7 @@ void Genome<T>::Evaluate(void)
 template<class T>
 float Genome<T>::EvaluateCallback(void)
 {
-
+    return 0.0f;
 }
 
 /*
@@ -182,7 +182,7 @@ bool Genome<T>::IsCreated(void) const
 }
 
 /*
- * 
+ *
  */
 template<class T>
 Function::FunctionType Genome<T>::Function(void) const
