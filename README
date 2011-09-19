@@ -1,4 +1,4 @@
-The current code is alpha and it is most likely it will change on each commit :-).
+Hello Boost!
 
-This is a template library, which means that although it handles many aspects of genetic algorithms it cannot read your mind. So, you will have to write some (maybe a lot of) code.
-
+This branch will hold an experimental usage of Boost with GeneticSoup.
+Most code will be written from scratch.
